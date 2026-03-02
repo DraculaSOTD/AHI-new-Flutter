@@ -417,8 +417,8 @@ export const FaceScanCameraScreen: React.FC = () => {
     // Check face detection with error window
     const isFaceDetected = updateFaceStateLog(
       faceDetectionLog,
-      rppgData.frameData?.rppgTrackerData.landmarks && 
-      rppgData.frameData.rppgTrackerData.landmarks.length > 0
+      !!(rppgData.frameData?.rppgTrackerData.landmarks &&
+      rppgData.frameData.rppgTrackerData.landmarks.length > 0)
     );
     
     const isFaceNear = imageQualityFlags ? updateFaceStateLog(

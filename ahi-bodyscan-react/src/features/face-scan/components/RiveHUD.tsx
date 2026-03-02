@@ -77,8 +77,8 @@ export const RiveHUD: React.FC<RiveHUDProps> = ({
     onLoad: () => {
       setRiveLoaded(true);
     },
-    onLoadError: (error: Error) => {
-      console.error('Rive failed to load:', error);
+    onLoadError: (event) => {
+      console.error('Rive failed to load:', event);
       setRiveLoaded(false);
     },
   });
