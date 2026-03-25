@@ -1,0 +1,30 @@
+{
+    "schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "description": "Schema for 10 year framingham cvd risk https://app.clickup.com/t/865c6nmt9.",
+    "items":
+    {
+        "description": "array of cutoffs values.",
+        "type": "object",
+        "properties":
+        {
+            "risk":
+            {
+                "type": "string",
+                "description": "framingham Score Rag",
+                "enum": ["R", "A", "G"]
+            },
+            "lowerBound":
+            {
+                "type": "number",
+                "description": "cutoff lower bound value, if not included = 0.0"
+            },
+            "upperBound":
+            {
+                "type": "number",
+                "description": "cutoff upper bound value, if not included = 99999.99"
+            }
+        },
+        "required": ["risk"]
+    }
+}

@@ -1,0 +1,210 @@
+{
+    "identifier": "anxiety",
+    "title": "Anxiety",
+    "questions":
+    [
+        {
+            "pageName": "generalAnxiety",
+            "pageTitle": "General Anxiety",
+            "questionName": "botheredByFeelingNervousAnxiousOrOnEdge",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by feeling nervous, anxious or on edge?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "worrying",
+            "pageTitle": "Worrying",
+            "questionName": "ableToStopOrControlWorrying",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by not being able to stop or control worrying?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "worrying",
+            "pageTitle": "Worrying",
+            "questionName": "beenWorryingTooMuchAboutDifferentThings",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by worrying too much about different things?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "relaxation",
+            "pageTitle": "Relaxation",
+            "questionName": "hadTroubleRelaxing",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by trouble relaxing?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "restlessness",
+            "pageTitle": "Restlessness",
+            "questionName": "restlessThatItIsHardToSitStill",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by being so restless that it is hard to sit still?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "irritability",
+            "pageTitle": "Irritability",
+            "questionName": "beenEasilyAnnoyedOrIrritable",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by becoming easily annoyed or irritable?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "fear",
+            "pageTitle": "Fear",
+            "questionName": "beenFeelingAfraidAsIfSomethingAwfulMightHappen",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by feeling afraid as if something awful might happen?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        }
+    ]
+}

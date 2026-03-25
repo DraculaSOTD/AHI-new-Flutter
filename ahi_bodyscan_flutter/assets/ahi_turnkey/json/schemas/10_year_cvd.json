@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "10-year CVD (RAG) schema https://app.clickup.com/t/865c6f08t",
+    "type": "array",
+    "items":
+    {
+        "description": "array of for each biological sex.",
+        "type": "object",
+        "properties":
+        {
+            "biologicalSex":
+            {
+                "type": "string",
+                "description": "biological Sex",
+                "enum": ["female", "male"]
+            },
+            "ageRanges":
+            {
+                "type": "array",
+                "items":
+                {
+                    "description": "array of age cutoffs values.",
+                    "type": "object",
+                    "properties":
+                    {
+                        "lowerBound":
+                        {
+                            "type": "number",
+                            "description": "age cutoff lower bound value, if not included = 0"
+                        },
+                        "upperBound":
+                        {
+                            "type": "number",
+                            "description": "age cutoff upper bound value, if not included = 99999"
+                        },
+                        "hrCategories":
+                        {
+                            "type": "array",
+                            "items":
+                            {
+                                "description": "array of heart rate category cutoffs values.",
+                                "type": "object",
+                                "properties":
+                                {
+                                    "lowerBound":
+                                    {
+                                        "type": "number",
+                                        "description": "heart rate cutoff lower bound value, if not included = 0"
+                                    },
+                                    "upperBound":
+                                    {
+                                        "type": "number",
+                                        "description": "heart rate cutoff upper bound value, if not included = 99999"
+                                    },
+                                    "bmiCategories":
+                                    {
+                                        "type": "array",
+                                        "items":
+                                        {
+                                            "description": "array of BMI category cutoffs values.",
+                                            "type": "object",
+                                            "properties":
+                                            {
+                                                "lowerBound":
+                                                {
+                                                    "type": "number",
+                                                    "description": "BMI cutoff lower bound value, if not included = 0"
+                                                },
+                                                "upperBound":
+                                                {
+                                                    "type": "number",
+                                                    "description": "BMI cutoff upper bound value, if not included = 99999"
+                                                },
+                                                "value":
+                                                {
+                                                    "type": "integer",
+                                                    "description": "risk value"
+                                                }
+                                                ,
+                                                "risk":
+                                                {
+                                                    "type": "string",
+                                                    "description": "RAG value",
+                                                    "enum": ["R", "A", "G"]
+                                                }
+                                            },
+                                            "required": ["value", "risk"]
+                                        }
+                                    }
+                                },
+                                "required": ["bmiCategories"]
+                            }
+                        }
+                    },
+                    "required": ["hrCategories"]
+                }
+            }
+        },
+        "required": ["biologicalSex", "ageRanges"]
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "description": "Schema for survey questionnaire.",
+    "items":
+    {
+        "type": "object",
+        "properties":
+        {
+            "pageName":
+            {
+                "type": "string",
+                "description": "page name"
+            },
+            "pageTitle":
+            {
+                "type": "string",
+                "description": "page title"
+            },
+            "questionName":
+            {
+                "type": "string",
+                "description": "question name"
+            },
+            "questionLabel":
+            {
+                "type": "string",
+                "description": "question label"
+            },
+            "answers":
+            {
+                "type": "array",
+                "items":
+                {
+                    "type": "object",
+                    "properties":
+                    {
+                        "answerName":
+                        {
+                            "type": "string",
+                            "description": "answer name"
+                        },
+                        "answerLabel":
+                        {
+                            "type": "string",
+                            "description": "answer label"
+                        },
+                        "score":
+                        {
+                            "type": "integer",
+                            "description": "score value"
+                        },
+                        "boolValue":
+                        {
+                            "type": "boolean",
+                            "description": "boolean value"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

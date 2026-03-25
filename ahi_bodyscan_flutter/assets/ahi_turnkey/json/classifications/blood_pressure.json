@@ -1,0 +1,68 @@
+[
+    {
+        "risk": "normal",
+        "rag": "G",
+        "sbpLowerBound": 90.0,
+        "sbpUpperBound": 119.99,
+        "dbpLowerBound": 60.0,
+        "dbpUpperBound": 79.99
+    },
+    {
+        "risk": "hypotensive",
+        "rag": "A",
+        "sbpUpperBound": 129.99,
+        "dbpUpperBound": 59.99
+    },
+    {
+        "risk": "hypotensive",
+        "rag": "A",
+        "sbpUpperBound": 89.99,
+        "dbpUpperBound": 79.99
+    },
+    {
+        "risk": "elevated",
+        "rag": "A",
+        "sbpLowerBound": 120.0,
+        "sbpUpperBound": 129.99,
+        "dbpLowerBound": 60.0,
+        "dbpUpperBound": 79.99
+    },
+    {
+        "risk": "hypertension1",
+        "rag": "A",
+        "sbpLowerBound": 130.0,
+        "sbpUpperBound": 139.99,
+        "dbpUpperBound": 89.99
+    },
+    {
+        "risk": "hypertension1",
+        "rag": "A",
+        "sbpUpperBound": 139.99,
+        "dbpLowerBound": 80.0,
+        "dbpUpperBound": 89.99
+    },
+    {
+        "risk": "hypertension2",
+        "rag": "R",
+        "sbpLowerBound": 140.0,
+        "sbpUpperBound": 179.99,
+        "dbpUpperBound": 120.99
+    },
+    {
+        "risk": "hypertension2",
+        "rag": "R",
+        "sbpUpperBound": 179.99,
+        "dbpLowerBound": 90.0,
+        "dbpUpperBound": 120.99
+    },
+    {
+        "risk": "crisis",
+        "rag": "R",
+        "sbpLowerBound": 180.0
+    },
+    {
+        "risk": "crisis",
+        "rag": "R",
+        "dbpLowerBound": 121.0
+    }
+]

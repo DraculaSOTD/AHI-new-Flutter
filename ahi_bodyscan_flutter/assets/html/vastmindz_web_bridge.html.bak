@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://websdk1.blob.core.windows.net https://*.xyz wss://*.xyz; connect-src 'self' https://websdk1.blob.core.windows.net https://*.xyz wss://*.xyz; media-src 'self' blob: mediastream:;">
+    <title>Vastmindz Face Scan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        #camera-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1); /* Mirror the video for selfie camera */
+        }
+
+        #face-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #status-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 59, 48, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 80%;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+    <div id="camera-container">
+        <video id="video-element" autoplay playsinline></video>
+        <canvas id="face-overlay"></canvas>
+        <div id="status-overlay">Loading SDK...</div>
+    </div>
+
+    <script>
+        // Load Vastmindz SDK dynamically with CDN fallback to local asset
+        (function() {
+            console.log('[SDK Loader] Starting to load Vastmindz Web-SDK');
+
+            function loadScript(src, isLocalFallback) {
+                return new Promise((resolve, reject) => {
+                    const sourceType = isLocalFallback ? 'local asset' : 'CDN';
+                    console.log(`[SDK Loader] Attempting to load from ${sourceType}: ${src}`);
+
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.async = false;
+
+                    script.onload = function() {
+                        console.log(`[SDK Loader] Script loaded successfully from ${sourceType}`);
+                        console.log('[SDK Loader] RPPG available:', typeof RPPG !== 'undefined');
+                        if (typeof RPPG !== 'undefined') {
+                            console.log('[SDK Loader] RPPG constructor:', typeof RPPG);
+                            window._sdkLoadedSuccessfully = true;
+                            resolve();
+                        } else {
+                            console.error(`[SDK Loader] Script loaded from ${sourceType} but RPPG is undefined!`);
+                            reject(new Error(`RPPG object not defined after loading from ${sourceType}`));
+                        }
+                    };
+
+                    script.onerror = function(error) {
+                        console.error(`[SDK Loader] Failed to load SDK from ${sourceType}`, error);
+                        reject(new Error(`Network error loading SDK from ${sourceType}`));
+                    };
+
+                    document.head.appendChild(script);
+                });
+            }
+
+            // Try CDN first, fallback to local asset
+            const cdnUrl = 'https://websdk1.blob.core.windows.net/sdk-1-2-3/dist/rppg.min.js';
+            const localUrl = 'flutter_assets/assets/js/rppg.min.js';
+
+            loadScript(cdnUrl, false)
+                .catch((cdnError) => {
+                    console.warn('[SDK Loader] CDN load failed, trying local asset:', cdnError.message);
+                    return loadScript(localUrl, true);
+                })
+                .then(() => {
+                    console.log('[SDK Loader] SDK loaded and ready');
+                })
+                .catch((finalError) => {
+                    console.error('[SDK Loader] All load attempts failed:', finalError.message);
+                    window._sdkLoadError = finalError.message;
+                });
+        })();
+
+        // Flutter communication channels
+        const FlutterChannel = {
+            postMessage: function(message) {
+                if (window.FlutterState) {
+                    window.FlutterState.postMessage(JSON.stringify(message));
+                } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.FlutterState) {
+                    window.webkit.messageHandlers.FlutterState.postMessage(JSON.stringify(message));
+                } else {
+                    console.log('[Flutter Message]', JSON.stringify(message));
+                }
+            }
+        };
+
+        // SDK state management
+        let rppgInstance = null;
+        let measurementActive = false;
+        let videoStream = null;
+        let sdkReady = false;
+        let scriptLoadTimeout = null;
+
+        // Update status overlay
+        function updateStatus(message, type = 'info') {
+            const statusEl = document.getElementById('status-overlay');
+            if (statusEl) {
+                statusEl.textContent = message;
+                statusEl.style.backgroundColor = type === 'error' ? 'rgba(255, 59, 48, 0.9)' :
+                                                 type === 'success' ? 'rgba(52, 199, 89, 0.9)' :
+                                                 'rgba(0, 0, 0, 0.7)';
+            }
+            console.log(`[Status: ${type}] ${message}`);
+        }
+
+        // Show error message
+        function showError(message) {
+            const container = document.getElementById('camera-container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            container.appendChild(errorDiv);
+
+            updateStatus(message, 'error');
+            FlutterChannel.postMessage({
+                type: 'error',
+                message: message
+            });
+        }
+
+        // Detect SDK load with timeout
+        function waitForSDK() {
+            return new Promise((resolve, reject) => {
+                console.log('[waitForSDK] Starting SDK detection');
+                let attempts = 0;
+                const maxAttempts = 300; // 30 seconds (100ms * 300)
+
+                const checkInterval = setInterval(() => {
+                    attempts++;
+
+                    // Check if there was a load error
+                    if (window._sdkLoadError) {
+                        clearInterval(checkInterval);
+                        console.error('[waitForSDK] SDK load error detected:', window._sdkLoadError);
+                        reject(new Error(window._sdkLoadError));
+                        return;
+                    }
+
+                    // Check if SDK loaded successfully
+                    if (typeof RPPG !== 'undefined') {
+                        clearInterval(checkInterval);
+                        console.log('[waitForSDK] Vastmindz Web-SDK loaded successfully after', attempts * 100, 'ms');
+                        console.log('[waitForSDK] RPPG type:', typeof RPPG);
+                        resolve();
+                        return;
+                    }
+
+                    // Check for timeout
+                    if (attempts >= maxAttempts) {
+                        clearInterval(checkInterval);
+                        const errorMsg = 'SDK loading timeout after 30 seconds. RPPG is still undefined.';
+                        console.error('[waitForSDK]', errorMsg);
+                        console.error('[waitForSDK] window._sdkLoadError:', window._sdkLoadError);
+                        console.error('[waitForSDK] window._sdkLoadedSuccessfully:', window._sdkLoadedSuccessfully);
+                        reject(new Error(errorMsg));
+                    }
+
+                    // Log progress every 50 attempts (5 seconds)
+                    if (attempts % 50 === 0) {
+                        console.log(`[waitForSDK] Still waiting... (${attempts * 100}ms elapsed)`);
+                    }
+                }, 100);
+            });
+        }
+
+        // Initialize camera and SDK
+        async function initialize() {
+            try {
+                updateStatus('Waiting for SDK to load...');
+
+                // Wait for SDK to load
+                await waitForSDK();
+
+                updateStatus('SDK loaded, initializing camera...');
+
+                console.log('[initialize] Requesting camera access via getUserMedia');
+                console.log('[initialize] navigator.mediaDevices available:', !!navigator.mediaDevices);
+                console.log('[initialize] getUserMedia available:', !!navigator.mediaDevices?.getUserMedia);
+
+                // Get user media first
+                try {
+                    videoStream = await navigator.mediaDevices.getUserMedia({
+                        video: {
+                            facingMode: 'user',
+                            width: { ideal: 1280 },
+                            height: { ideal: 720 }
+                        },
+                        audio: false
+                    });
+                    console.log('[initialize] Camera access granted successfully');
+                    console.log('[initialize] Video tracks:', videoStream.getVideoTracks().length);
+                } catch (cameraError) {
+                    console.error('[initialize] Camera access denied:', cameraError);
+                    console.error('[initialize] Error name:', cameraError.name);
+                    console.error('[initialize] Error message:', cameraError.message);
+                    throw new Error('Failed to access camera: ' + cameraError.message);
+                }
+
+                const videoElement = document.getElementById('video-element');
+                const canvasElement = document.getElementById('face-overlay');
+
+                // Create RPPG instance with callbacks
+                rppgInstance = new RPPG({
+                    serverless: false, // Use server-based processing
+                    onFrame: (data) => {
+                        // Frame data: averageFps, instantFps, rppgTrackerData, timestamp, faceCoords
+                        if (data.faceCoords && data.faceCoords.length === 4) {
+                            FlutterChannel.postMessage({
+                                type: 'faceDetection',
+                                detected: true,
+                                aligned: true,
+                                distanceOk: true,
+                                lightingOk: true
+                            });
+                        }
+                    },
+                    onMeasurementMeanData: (data) => {
+                        // Health metrics: bpm, rr, oxygen, stressStatus, bloodPressureStatus
+                        console.log('Measurement data received:', data);
+
+                        FlutterChannel.postMessage({
+                            type: 'vitalSigns',
+                            data: {
+                                heartRate: data.bpm || 0,
+                                respiratoryRate: data.rr || 0,
+                                oxygenSaturation: data.oxygen || 0,
+                                heartRateVariability: data.hrv || 0,
+                                systolicBP: data.bloodPressure?.systolic || 0,
+                                diastolicBP: data.bloodPressure?.diastolic || 0,
+                                stressLevel: mapStressLevel(data.stressStatus),
+                                progressPercent: data.progressPercent || 0,
+                                snr: data.snr || 0,
+                                statusMessage: data.stressStatus || '',
+                                timestamp: new Date().toISOString()
+                            }
+                        });
+                    },
+                    onMeasurementProgress: (data) => {
+                        // Progress updates
+                        const progress = data.progressPercent || 0;
+                        updateStatus(`Measuring: ${Math.round(progress)}%`);
+
+                        FlutterChannel.postMessage({
+                            type: 'progress',
+                            value: progress
+                        });
+                    }
+                });
+
+                updateStatus('Initializing camera...');
+
+                // Initialize camera
+                await rppgInstance.initCamera({
+                    width: 640,
+                    height: 480,
+                    videoElement: videoElement,
+                    canvasElement: canvasElement,
+                    onSuccess: ({ width, height }) => {
+                        console.log(`Camera initialized: ${width}x${height}`);
+                        updateStatus('Camera initialized', 'success');
+                    }
+                });
+
+                updateStatus('Initializing tracker...');
+
+                // Initialize face tracker
+                await rppgInstance.initTracker();
+                console.log('Face tracker initialized');
+
+                sdkReady = true;
+                updateStatus('SDK ready', 'success');
+
+                // Notify Flutter that initialization is complete
+                FlutterChannel.postMessage({
+                    type: 'initialized',
+                    state: 'prepared'
+                });
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showError('Failed to initialize: ' + error.message);
+            }
+        }
+
+        // Start face scan measurement
+        async function startMeasurement(config) {
+            try {
+                if (!sdkReady) {
+                    throw new Error('SDK not ready - call initialize() first');
+                }
+
+                if (measurementActive) {
+                    console.warn('Measurement already active');
+                    return;
+                }
+
+                updateStatus('Starting measurement...');
+
+                // Parse configuration
+                const {
+                    authToken,
+                    baseUrl,
+                    age,
+                    sex,
+                    height,
+                    weight,
+                    fps
+                } = config;
+
+                console.log('Starting measurement with config:', {
+                    authToken: authToken ? `${authToken.substring(0, 10)}...` : 'missing',
+                    baseUrl,
+                    age,
+                    sex,
+                    height,
+                    weight,
+                    fps
+                });
+
+                // Initialize WebSocket connection
+                await rppgInstance.initSocket({
+                    authToken: authToken
+                });
+                console.log('WebSocket connection initialized');
+
+                // Start the scan
+                rppgInstance.start();
+                measurementActive = true;
+                updateStatus('Measurement in progress...');
+
+                FlutterChannel.postMessage({
+                    type: 'state',
+                    state: 'analysisRunning'
+                });
+
+            } catch (error) {
+                console.error('Start measurement error:', error);
+                measurementActive = false;
+                showError('Failed to start measurement: ' + error.message);
+            }
+        }
+
+        // Stop measurement
+        function stopMeasurement() {
+            if (rppgInstance && measurementActive) {
+                try {
+                    rppgInstance.stop();
+                    measurementActive = false;
+                    updateStatus('Measurement stopped', 'info');
+
+                    FlutterChannel.postMessage({
+                        type: 'state',
+                        state: 'videoStarted'
+                    });
+                } catch (error) {
+                    console.error('Stop error:', error);
+                }
+            }
+        }
+
+        // Cleanup resources
+        function cleanup() {
+            stopMeasurement();
+
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+            }
+
+            if (rppgInstance) {
+                try {
+                    rppgInstance.destroy();
+                } catch (e) {
+                    console.warn('Error destroying SDK instance:', e);
+                }
+                rppgInstance = null;
+            }
+
+            sdkReady = false;
+            measurementActive = false;
+
+            FlutterChannel.postMessage({
+                type: 'state',
+                state: 'initial'
+            });
+        }
+
+        // Map stress status to level (0.0 - 1.0)
+        function mapStressLevel(status) {
+            if (!status) return 0.5;
+            const statusUpper = status.toUpperCase();
+            switch (statusUpper) {
+                case 'LOW': return 0.2;
+                case 'NORMAL': return 0.5;
+                case 'ELEVATED': return 0.7;
+                case 'HIGH':
+                case 'VERY_HIGH': return 0.9;
+                default: return 0.5;
+            }
+        }
+
+        // Expose functions to Flutter
+        window.VastmindzBridge = {
+            initialize: initialize,
+            startMeasurement: startMeasurement,
+            stopMeasurement: stopMeasurement,
+            cleanup: cleanup
+        };
+
+        // Auto-initialize when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('Vastmindz Web Bridge loaded');
+            updateStatus('Bridge ready, loading SDK...');
+
+            // Notify Flutter that bridge is ready
+            FlutterChannel.postMessage({
+                type: 'bridgeReady'
+            });
+
+            // Start SDK load detection
+            waitForSDK()
+                .then(() => {
+                    console.log('SDK ready for initialization');
+                    updateStatus('SDK loaded, ready to initialize');
+                })
+                .catch((error) => {
+                    console.error('SDK loading failed:', error);
+                    showError('Failed to load Vastmindz SDK: ' + error.message);
+                });
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && measurementActive) {
+                console.log('Page hidden, pausing measurement');
+                stopMeasurement();
+            }
+        });
+
+        // Error handler for script loading failures
+        window.addEventListener('error', function(event) {
+            if (event.target.tagName === 'SCRIPT') {
+                console.error('Script loading error:', event);
+                showError('Failed to load required scripts. Check network connection.');
+            }
+        });
+    </script>
+</body>
+</html>

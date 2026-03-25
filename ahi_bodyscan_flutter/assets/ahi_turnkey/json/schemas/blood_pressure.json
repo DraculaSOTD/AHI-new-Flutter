@@ -1,0 +1,46 @@
+{
+    "schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "description": "Schema for blood pressure risk https://app.clickup.com/t/865c6f2zg.",
+    "items":
+    {
+        "description": "array of cutoffs values.",
+        "type": "object",
+        "properties":
+        {
+            "risk":
+            {
+                "type": "string",
+                "description": "risk label",
+                "enum": ["hypotensive", "normal", "elevated", "hypertension1", "hypertension2", "crisis"]
+            },
+            "rag":
+            {
+                "type": "string",
+                "description": "rag value",
+                "enum": ["R", "A", "G"]
+            },
+            "sbpLowerBound":
+            {
+                "type": "number",
+                "description": "sbp cutoff lower bound value, if not included = 0.0"
+            },
+            "sdpUpperBound":
+            {
+                "type": "number",
+                "description": "sbp cutoff upper bound value, if not included = 99999.99"
+            },
+            "dbpLowerBound":
+            {
+                "type": "number",
+                "description": "dbp cutoff lower bound value, if not included = 0.0"
+            },
+            "ddpUpperBound":
+            {
+                "type": "number",
+                "description": "dbp cutoff upper bound value, if not included = 99999.99"
+            }
+        },
+        "required": ["risk", "rag"]
+    }
+}

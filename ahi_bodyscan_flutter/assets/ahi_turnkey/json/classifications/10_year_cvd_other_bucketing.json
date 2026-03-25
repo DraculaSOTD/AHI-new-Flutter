@@ -1,0 +1,3022 @@
+[
+    {
+        "biologicalSex": "female",
+        "isSmoker": false,
+        "ageRanges":
+        [
+            {
+                "upperBound": 44.99,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 45.0,
+                "upperBound": 52.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 52.50,
+                "upperBound": 57.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 57.50,
+                "upperBound": 62.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 4,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 62.50,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 4,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 6,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 8,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 10,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "biologicalSex": "female",
+        "isSmoker": true,
+        "ageRanges":
+        [
+            {
+                "upperBound": 44.99,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 0,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 45.0,
+                "upperBound": 52.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 52.50,
+                "upperBound": 57.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value":2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 4,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 7,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 57.50,
+                "upperBound": 62.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 7,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 8,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 11,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 13,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 62.50,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 10,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 13,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 11,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 16,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 20,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 17,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 25,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "biologicalSex": "male",
+        "isSmoker": false,
+        "ageRanges":
+        [
+            {
+                "upperBound": 44.99,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 0,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 1,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 2,
+                                "risk": "G"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 45.0,
+                "upperBound": 52.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 4,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 6,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 7,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 52.50,
+                "upperBound": 57.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 6,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 7,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 9,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 12,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 57.50,
+                "upperBound": 62.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 8,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 10,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 12,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 11,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 15,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 19,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 62.50,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 13,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 11,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 16,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 14,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 19,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 17,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 24,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 11,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 16,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 21,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 29,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "biologicalSex": "male",
+        "isSmoker": true,
+        "ageRanges":
+        [
+            {
+                "upperBound": 44.99,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 3,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 1,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 4,
+                                "risk": "A"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 5,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 6,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 45.0,
+                "upperBound": 52.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 2,
+                                "risk": "G"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 7,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 3,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 9,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 11,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 13,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 12,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 16,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 52.50,
+                "upperBound": 57.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 4,
+                                "risk": "A"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 11,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 5,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 14,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 6,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 12,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 17,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 8,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 11,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 15,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 21,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 14,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 19,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 26,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 57.50,
+                "upperBound": 62.49,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 7,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 9,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 18,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 14,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 20,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 27,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 10,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 14,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 20,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 27,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 13,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 18,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 24,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 32,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 16,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 22,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 29,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 39,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "lowerBound": 62.50,
+                "hrCategories":
+                [
+                    {
+                        "upperBound": 64.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 11,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 15,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 21,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 28,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 65.0,
+                        "upperBound": 74.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 14,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 19,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 25,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 34,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 84.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 17,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 23,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 31,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 40,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 94.99,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 21,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 28,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 37,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 48,
+                                "risk": "R"
+                            }
+                        ]
+                    },
+                    {
+                        "lowerBound": 95.0,
+                        "bmiCategories":
+                        [
+                            {
+                                "upperBound": 25.49,
+                                "value": 25,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 25.50,
+                                "upperBound": 30.49,
+                                "value": 34,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 30.50,
+                                "upperBound": 35.49,
+                                "value": 44,
+                                "risk": "R"
+                            },
+                            {
+                                "lowerBound": 35.50,
+                                "value": 56,
+                                "risk": "R"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

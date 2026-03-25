@@ -1,0 +1,142 @@
+[
+    {
+        "biologicalSex": "male",
+        "ageRanges":
+        [
+            {
+                "upperBound": 39,
+                "risks":
+                [
+                    {
+                        "lowerBound": 20.0,
+                        "upperBound": 75.99,
+                        "risk": "G"
+                    },
+                    {
+                        "lowerBound": 76.0,
+                        "upperBound": 83.99,
+                        "risk": "A"
+                    },
+                    {
+                        "lowerBound": 84.0,
+                        "upperBound": 120.0,
+                        "risk": "R"
+                    }
+                ]
+            },
+            {
+                "lowerBound": 40,
+                "upperBound": 59,
+                "risks":
+                [
+                    {
+                        "lowerBound": 20.0,
+                        "upperBound": 76.99,
+                        "risk": "G"
+                    },
+                    {
+                        "lowerBound": 77.0,
+                        "upperBound": 84.99,
+                        "risk": "A"
+                    },
+                    {
+                        "lowerBound": 85.0,
+                        "upperBound": 120.0,
+                        "risk": "R"
+                    }
+                ]
+            },
+            {
+                "lowerBound": 60,
+                "risks":
+                [
+                    {
+                        "lowerBound": 20.0,
+                        "upperBound": 74.99,
+                        "risk": "G"
+                    },
+                    {
+                        "lowerBound": 75.0,
+                        "upperBound": 83.99,
+                        "risk": "A"
+                    },
+                    {
+                        "lowerBound": 84.0,
+                        "upperBound": 120.0,
+                        "risk": "R"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "biologicalSex": "female",
+        "ageRanges":
+        [
+            {
+                "upperBound": 39,
+                "risks":
+                [
+                    {
+                        "lowerBound": 20.0,
+                        "upperBound": 81.99,
+                        "risk": "G"
+                    },
+                    {
+                        "lowerBound": 82.0,
+                        "upperBound": 88.99,
+                        "risk": "A"
+                    },
+                    {
+                        "lowerBound": 89.0,
+                        "upperBound": 120.0,
+                        "risk": "R"
+                    }
+                ]
+            },
+            {
+                "lowerBound": 40,
+                "upperBound": 59,
+                "risks":
+                [
+                    {
+                        "lowerBound": 20.0,
+                        "upperBound": 78.99,
+                        "risk": "G"
+                    },
+                    {
+                        "lowerBound": 79.0,
+                        "upperBound": 85.99,
+                        "risk": "A"
+                    },
+                    {
+                        "lowerBound": 86.0,
+                        "upperBound": 120.0,
+                        "risk": "R"
+                    }
+                ]
+            },
+            {
+                "lowerBound": 60,
+                "risks":
+                [
+                    {
+                        "lowerBound": 20.0,
+                        "upperBound": 77.99,
+                        "risk": "G"
+                    },
+                    {
+                        "lowerBound": 78.0,
+                        "upperBound": 85.99,
+                        "risk": "A"
+                    },
+                    {
+                        "lowerBound": 86.0,
+                        "upperBound": 120.0,
+                        "risk": "R"
+                    }
+                ]
+            }
+        ]
+    }
+]

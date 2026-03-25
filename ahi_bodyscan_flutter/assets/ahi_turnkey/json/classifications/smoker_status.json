@@ -1,0 +1,15 @@
+[
+    {
+        "risk": "R",
+        "upperBound": 0
+    },
+    {
+        "risk": "A",
+        "lowerBound": 1,
+        "upperBound": 1
+    },
+    {
+        "risk": "G",
+        "lowerBound": 2
+    }
+]

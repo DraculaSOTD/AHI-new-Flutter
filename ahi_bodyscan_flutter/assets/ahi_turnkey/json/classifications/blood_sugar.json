@@ -1,0 +1,17 @@
+[
+    {
+        "risk": "G",
+        "lowerBound": 4,
+        "upperBound": 5.69
+    },
+    {
+        "risk": "A",
+        "lowerBound": 5.70,
+        "upperBound": 6.49
+    },
+    {
+        "risk": "R",
+        "lowerBound": 6.50,
+        "upperBound": 20
+    }
+]

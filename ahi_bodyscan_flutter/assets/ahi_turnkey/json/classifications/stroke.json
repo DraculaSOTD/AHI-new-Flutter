@@ -1,0 +1,25 @@
+[
+    {
+        "risk": "low",
+        "upperBound": 3.29
+    },
+    {
+        "risk": "lowMedium",
+        "lowerBound": 3.30,
+        "upperBound": 4.94
+    },
+    {
+        "risk": "medium",
+        "lowerBound": 4.95,
+        "upperBound": 6.59
+    },
+    {
+        "risk": "high",
+        "lowerBound": 6.60,
+        "upperBound": 13.19
+    },
+    {
+        "risk": "veryHigh",
+        "lowerBound": 13.20
+    }
+]

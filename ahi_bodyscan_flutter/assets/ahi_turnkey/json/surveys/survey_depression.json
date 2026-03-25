@@ -1,0 +1,268 @@
+{
+    "identifier": "depression",
+    "title": "Depression",
+    "questions":
+    [
+        {
+            "pageName": "interests",
+            "pageTitle": "Interests",
+            "questionName": "littleInterestOrPleasureDoingThings",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by little interest or pleasure in doing things?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "downAndHopeless",
+            "pageTitle": "Down & Hopeless",
+            "questionName": "botheredByFeelingDownDepressedOrHopeless",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "sleep",
+            "pageTitle": "Sleep",
+            "questionName": "troubleFallingAsleepOrSleepingToMuch",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by trouble falling or staying asleep, or sleeping too much?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "tiredness",
+            "pageTitle": "Tiredness",
+            "questionName": "feltTiredOrHaveLittleEnergy",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by feeling tired or having little energy?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "appetite",
+            "pageTitle": "Appetite",
+            "questionName": "poorAppetiteOrOvereaten",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by poor appetite or overeating?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "negativeFeelings",
+            "pageTitle": "Negative feelings",
+            "questionName": "feltAboutSelfOrFailureOrLetFamilyDown",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by feeling bad about yourself - or that you are a failure or have let yourself or your family down?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "concentration",
+            "pageTitle": "Concentration",
+            "questionName": "troubleConcentratingOnThings",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by trouble concentrating on things, such as reading the newspaper or watching television?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "fidgetingAndSluggishness",
+            "pageTitle": "Fidgeting & Sluggishness",
+            "questionName": "movingOrSpeakingSlowlyOrFidgetyOrRestless",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual.",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "negativeThoughts",
+            "pageTitle": "Negative thoughts",
+            "questionName": "suicidalThoughtsOrHurtingSelf",
+            "questionLabel": "Over the last 2 weeks, how often have you been bothered by thoughts that you would be better off dead, or of hurting yourself?",
+            "answers":
+            [
+                {
+                    "answerName": "NotAtAll",
+                    "answerLabel": "Not at all",
+                    "score": 0
+                },
+                {
+                    "answerName": "SeveralDays",
+                    "answerLabel": "Several days",
+                    "score": 1
+                },
+                {
+                    "answerName": "MoreThanHalfTheDays",
+                    "answerLabel": "More than half the days",
+                    "score": 2
+                },
+                {
+                    "answerName": "NearlyEveryDay",
+                    "answerLabel": "Nearly every day",
+                    "score": 3
+                }
+            ]
+        }
+    ]
+}

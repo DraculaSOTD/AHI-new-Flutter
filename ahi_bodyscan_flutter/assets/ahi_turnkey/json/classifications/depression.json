@@ -1,0 +1,27 @@
+[
+    {
+        "risk": "minimal",
+        "lowerBound": 0.0,
+        "upperBound": 4.99
+    },
+    {
+        "risk": "mild",
+        "lowerBound": 5.0,
+        "upperBound": 9.99
+    },
+    {
+        "risk": "moderate",
+        "lowerBound": 10.0,
+        "upperBound": 14.99
+    },
+    {
+        "risk": "moderatelySevere",
+        "lowerBound": 15.0,
+        "upperBound": 19.99
+    },
+    {
+        "risk": "severe",
+        "lowerBound": 20.0,
+        "upperBound": 27
+    }
+]

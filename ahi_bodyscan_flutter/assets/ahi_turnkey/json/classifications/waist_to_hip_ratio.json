@@ -1,0 +1,44 @@
+[
+    {
+        "biologicalSex": "male",
+        "risks":
+        [
+            {
+                "risk": "G",
+                "lowerBound": 0.4,
+                "upperBound": 0.95
+            },
+            {
+                "risk": "A",
+                "lowerBound": 0.96,
+                "upperBound": 0.99
+            },
+            {
+                "risk": "R",
+                "lowerBound": 1.0,
+                "upperBound": 2.0
+            }
+        ]
+    },
+    {
+        "biologicalSex": "female",
+        "risks":
+        [
+            {
+                "risk": "G",
+                "lowerBound": 0.4,
+                "upperBound": 0.80
+            },
+            {
+                "risk": "A",
+                "lowerBound": 0.81,
+                "upperBound": 0.85
+            },
+            {
+                "risk": "R",
+                "lowerBound": 0.86,
+                "upperBound": 2.0
+            }
+        ]
+    }
+]

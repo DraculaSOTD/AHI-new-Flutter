@@ -1,0 +1,408 @@
+[
+    {
+        "biologicalSex": "female",
+        "ageRanges":
+        [
+            {
+                "upperBound": 24,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 37.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 32.0,
+                        "upperBound": 36.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 31.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 25,
+                "upperBound": 29,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 36.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 31.0,
+                        "upperBound": 35.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 30.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 30,
+                "upperBound": 34,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 34.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 30.0,
+                        "upperBound": 33.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 29.99
+                    }
+                ]
+            }
+            ,
+            {
+                "lowerBound": 35,
+                "upperBound": 39,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 32.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 28.0,
+                        "upperBound": 31.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 27.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 40,
+                "upperBound": 44,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 30.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 26.0,
+                        "upperBound": 29.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 25.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 45,
+                "upperBound": 49,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 28.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 24.0,
+                        "upperBound": 27.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 23.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 50,
+                "upperBound": 54,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 26.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 23.0,
+                        "upperBound": 25.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 22.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 55,
+                "upperBound": 59,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 24.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 21.0,
+                        "upperBound": 23.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 20.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 60,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 22.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 19.0,
+                        "upperBound": 21.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 18.99
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "biologicalSex": "male",
+        "ageRanges":
+        [
+            {
+                "upperBound": 24,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 44.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 38.0,
+                        "upperBound": 43.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 37.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 25,
+                "upperBound": 29,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 43.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 36.0,
+                        "upperBound": 42.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 35.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 30,
+                "upperBound": 34,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 41.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 35.0,
+                        "upperBound": 40.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 34.99
+                    }
+                ]
+            }
+            ,
+            {
+                "lowerBound": 35,
+                "upperBound": 39,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 39.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 33.0,
+                        "upperBound": 38.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 32.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 40,
+                "upperBound": 44,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 36.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 32.0,
+                        "upperBound": 35.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 31.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 45,
+                "upperBound": 49,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 35.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 30.0,
+                        "upperBound": 34.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 29.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 50,
+                "upperBound": 54,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 33.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 28.0,
+                        "upperBound": 32.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 27.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 55,
+                "upperBound": 59,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 31.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 27.0,
+                        "upperBound": 30.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 26.99
+                    }
+                ]
+            },
+            {
+                "lowerBound": 60,
+                "risks":
+                [
+                    {
+                        "risk": "G",
+                        "lowerBound": 29.0,
+                        "upperBound": 80.00
+                    },
+                    {
+                        "risk": "A",
+                        "lowerBound": 25.0,
+                        "upperBound": 28.99
+                    },
+                    {
+                        "risk": "R",
+                        "lowerBound": 10.0,
+                        "upperBound": 24.99
+                    }
+                ]
+            }
+        ]
+    }
+]

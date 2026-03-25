@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Body Fat Percentage (risk) schema https://app.clickup.com/t/865c6f7be",
+    "type": "array",
+    "items":
+    {
+        "description": "array of for each biological sex.",
+        "type": "object",
+        "properties":
+        {
+            "biologicalSex":
+            {
+                "type": "string",
+                "description": "biological Sex",
+                "enum": ["female", "male"]
+            },
+            "ageRanges":
+            {
+                "type": "array",
+                "items":
+                {
+                    "description": "array of age cutoffs values.",
+                    "type": "object",
+                    "properties":
+                    {
+                        "lowerBound":
+                        {
+                            "type": "integer",
+                            "description": "age cutoff lower bound value, if not included = 0"
+                        },
+                        "upperBound":
+                        {
+                            "type": "integer",
+                            "description": "age cutoff upper bound value, if not included = 99999"
+                        },
+                        "risks":
+                        {
+                            "type": "array",
+                            "items":
+                            {
+                                "description": "array of body fat percentage risk cutoffs values.",
+                                "type": "object",
+                                "properties":
+                                {
+                                    "risk":
+                                    {
+                                        "type": "string",
+                                        "description": "RAG value",
+                                        "enum": ["R", "A", "G"]
+                                    },
+                                    "lowerBound":
+                                    {
+                                        "type": "number",
+                                        "description": "cutoff lower bound value, if not included = 0"
+                                    },
+                                    "upperBound":
+                                    {
+                                        "type": "number",
+                                        "description": "cutoff upper bound value, if not included = 99999"
+                                    }
+                                },
+                                "required": ["risk"]
+                            }
+                        }
+                    },
+                    "required": ["risks"]
+                }
+            }
+        },
+        "required": ["biologicalSex", "ageRanges"]
+    }
+}

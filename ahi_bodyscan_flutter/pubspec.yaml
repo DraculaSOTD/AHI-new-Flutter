@@ -1,0 +1,129 @@
+name: ahi_bodyscan_flutter
+description: "AHI BodyScan - Computer vision-based health technology mobile application"
+publish_to: 'none'
+version: 0.0.1+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # UI & Design
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10
+
+  # Navigation & Routing
+  go_router: ^14.6.2
+
+  # State Management
+  provider: ^6.1.2
+
+  # Permissions
+  permission_handler: ^11.3.1
+  image: ^4.3.0
+  
+  # App Info
+  package_info_plus: ^8.0.3
+
+  # Storage & Network
+  shared_preferences: ^2.3.3
+  http: ^1.2.2
+  path_provider: ^2.1.5
+
+  # Utilities
+  intl: ^0.20.2
+  equatable: ^2.0.7
+  uuid: ^4.5.1
+  flutter_dotenv: ^5.2.1
+
+  # AHI SDK Dependencies
+  flutter_cube: ^0.1.1
+  plugin_platform_interface: ^2.1.8
+  expandable: ^5.0.1
+  flutter_animate: ^4.2.0+1
+  just_audio: ^0.9.37
+  audioplayers: ^5.2.1
+  collection: ^1.17.0
+  flutter_bloc: ^8.1.3
+  wakelock_plus: ^1.2.2
+  plist_parser: ^0.0.9
+  
+  # Missing dependencies for legacy code compatibility
+  web_socket_channel: ^2.4.0
+  camera: ^0.10.0
+
+  # Vastmindz rPPG SDK for face scan vital signs
+  rppg_common:
+    path: ../vastmindz_sdk
+
+  # Charts & Animations
+  fl_chart: ^0.69.2
+  animations: ^2.0.11
+  shimmer: ^3.0.0
+  lottie: ^3.1.3
+  rive: ^0.13.18
+
+  # Image Processing
+  image_picker: ^1.1.2
+
+  # PDF Generation
+  pdf: ^3.11.1
+  printing: ^5.13.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - .env
+    - assets/images/
+    - assets/icons/
+    - assets/animations/
+    - assets/rive/
+    - assets/html/
+    # AHI Turnkey Assets
+    - assets/ahi_turnkey/images/
+    - assets/ahi_turnkey/audios/
+    - assets/ahi_turnkey/fonts/
+    - assets/ahi_turnkey/json/
+    - assets/ahi_turnkey/info_sheets/
+    - assets/ahi_turnkey/cube/
+
+  # Custom fonts
+  fonts:
+    # AHI Turnkey Fonts
+    - family: AHIIcon
+      fonts:
+        - asset: assets/ahi_turnkey/fonts/ahicon.ttf
+    - family: SFPro
+      fonts:
+        - asset: assets/ahi_turnkey/fonts/SFPro.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/ahi_turnkey/fonts/OpenSans-VF.ttf
+        - asset: assets/ahi_turnkey/fonts/OpenSans-Italic-VF.ttf
+          style: italic
+    - family: Alaska
+      fonts:
+        - asset: assets/ahi_turnkey/fonts/alaska-vf.ttf
+    - family: Arial
+      fonts:
+        - asset: assets/ahi_turnkey/fonts/Arial.ttf
+        - asset: assets/ahi_turnkey/fonts/Arial-Italic.ttf
+          style: italic

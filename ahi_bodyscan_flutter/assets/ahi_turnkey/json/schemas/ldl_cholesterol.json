@@ -1,0 +1,30 @@
+{
+    "schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "description": "Schema for LDL Cholesterol (RAG) https://app.clickup.com/t/865c6f8z6.",
+    "items":
+    {
+        "description": "array of cutoffs values.",
+        "type": "object",
+        "properties":
+        {
+            "risk":
+            {
+                "type": "string",
+                "description": "RAG value",
+                "enum": ["R", "A", "G"]
+            },
+            "lowerBound":
+            {
+                "type": "number",
+                "description": "cutoff lower bound value, if not included = 0"
+            },
+            "upperBound":
+            {
+                "type": "number",
+                "description": "cutoff upper bound value, if not included = 99999"
+            }
+        },
+        "required": ["risk"]
+    }
+}

@@ -1,0 +1,84 @@
+{
+    "identifier": "profile",
+    "title": "Profile",
+    "questions":
+    [
+        {
+            "pageName": "familyHistory",
+            "pageTitle": "Family History",
+            "questionName": "famHistory",
+            "questionLabel": "Do you have a family history of Diabetes, Cancer and/or Heart Disease?",
+            "answers":
+            [
+                {
+                	"answerName": "noLowRisk",
+                    "answerLabel": "No",
+                    "score": 0
+                },
+                {
+                	"answerName": "yesHighRisk",
+                    "answerLabel": "Yes",
+                    "score": 1
+                }
+            ]
+        },
+        {
+            "pageName": "medication",
+            "pageTitle": "Medication",
+            "questionName": "chronicMeds",
+            "questionLabel": "Are you on chronic medication?",
+            "answers":
+            [
+                {
+                    "answerName": "noLowRisk",
+                    "answerLabel": "No",
+                    "score": 1
+                },
+                {
+                    "answerName": "yesModerateRisk",
+                    "answerLabel": "Yes, medication used for 1-2 diseases.",
+                    "score": 2
+                },
+                {
+                    "answerName": "yesHighRisk",
+                    "answerLabel": "Yes, medication used for 3 or more diseases.",
+                    "score": 3
+                }
+            ]
+        },
+        {
+            "pageName": "exercise",
+            "pageTitle": "Exercise",
+            "questionName": "activityLevel",
+            "questionLabel": "Do you perform regular aerobic exercise such as brisk walking, jogging, cycling, gym or other activities requiring similar levels of exertion?",
+            "answers":
+            [
+                {
+                    "answerName": "inactiveHighRisk",
+                    "answerLabel": "I am inactive or do very little activity other than usual daily activities.",
+                    "score": 1
+                },
+                {
+                    "answerName": "lowActivityHighRisk",
+                    "answerLabel": "I regularly (≥5 days per week) participate in physical activity that results in only a slight increase in breathing and heart rate, for at least 10 minutes at a time.",
+                    "score": 2
+                },
+                {
+                    "answerName": "moderateActivityModerateRisk",
+                    "answerLabel": "I participate in aerobic exercises for 20-60 minutes per week.",
+                    "score": 3
+                },
+                {
+                    "answerName": "highActivityLowRisk",
+                    "answerLabel": "I participate in aerobic exercises for 1-3 hours per week.",
+                    "score": 4
+                },
+                {
+                    "answerName": "extremeActivityLowRisk",
+                    "answerLabel": "I participate in aerobic exercises for over 3 hours per week.",
+                    "score": 5
+                }
+            ]
+        }
+    ]
+}
