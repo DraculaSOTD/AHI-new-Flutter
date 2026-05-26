@@ -86,8 +86,10 @@ class _BodyScanResultsScreenState extends State<BodyScanResultsScreen>
   }
 
   Widget _buildMeasurementsTab() {
+    final bottomInset =
+        MediaQueryData.fromView(View.of(context)).viewPadding.bottom;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + bottomInset),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -233,7 +235,7 @@ class _BodyScanResultsScreenState extends State<BodyScanResultsScreen>
         
         // 3D controls info
         Container(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + MediaQueryData.fromView(View.of(context)).viewPadding.bottom),
           decoration: BoxDecoration(
             color: AppColors.backgroundGray,
             borderRadius: const BorderRadius.only(
@@ -264,8 +266,10 @@ class _BodyScanResultsScreenState extends State<BodyScanResultsScreen>
   }
 
   Widget _buildAnalysisTab() {
+    final bottomInset =
+        MediaQueryData.fromView(View.of(context)).viewPadding.bottom;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + bottomInset),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

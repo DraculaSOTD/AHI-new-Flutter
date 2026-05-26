@@ -79,10 +79,10 @@ android {
         resources.excludes.add("META-INF/NOTICE.txt")
 
         // Handle duplicate native libraries from different SDKs
-        // CRITICAL: AHI SDK requires OpenCV 4.5.5 (libopencv_java4.so)
-        // Vastmindz SDK also includes OpenCV 4.1.2 (libopencv_java4.so)
-        // We MUST ensure AHI's version is used by excluding Vastmindz's OpenCV
-        // Using pickFirsts will use whichever comes first in dependencies
+        // AHI body scan requires OpenCV 4.5.5 (libopencv_java4.so), pulled in
+        // transitively by ahi-sdk-bodyscan. We no longer bundle the Vastmindz
+        // OpenCV 4.1.2 AAR, so these pickFirsts entries are defence-in-depth in
+        // case any future transitive dep reintroduces a conflicting copy.
         jniLibs.pickFirsts.add("lib/arm64-v8a/libopencv_java4.so")
         jniLibs.pickFirsts.add("lib/armeabi-v7a/libopencv_java4.so")
         jniLibs.pickFirsts.add("lib/x86_64/libopencv_java4.so")
@@ -94,15 +94,13 @@ android {
         jniLibs.pickFirsts.add("lib/x86_64/libc++_shared.so")
         jniLibs.pickFirsts.add("lib/x86/libc++_shared.so")
 
-        // Vastmindz rPPG native libraries (in case of duplicates)
-        jniLibs.pickFirsts.add("lib/arm64-v8a/librppg_core.so")
-        jniLibs.pickFirsts.add("lib/armeabi-v7a/librppg_core.so")
-        jniLibs.pickFirsts.add("lib/x86_64/librppg_core.so")
-        jniLibs.pickFirsts.add("lib/x86/librppg_core.so")
-        jniLibs.pickFirsts.add("lib/arm64-v8a/librppg_bridge.so")
-        jniLibs.pickFirsts.add("lib/armeabi-v7a/librppg_bridge.so")
-        jniLibs.pickFirsts.add("lib/x86_64/librppg_bridge.so")
-        jniLibs.pickFirsts.add("lib/x86/librppg_bridge.so")
+        // Vastmindz face-scan native libs are excluded from the APK. They embed
+        // OpenCV 4.1.2 header-inlined code paths (cv::Mat::create, etc.) that
+        // conflict at runtime with AHI body scan's OpenCV 4.5.5 and SIGSEGV inside
+        // libcontourGenerator.so. Face scan invocations will fail with
+        // UnsatisfiedLinkError while these excludes are in place.
+        jniLibs.excludes.add("lib/*/librppg_core.so")
+        jniLibs.excludes.add("lib/*/librppg_bridge.so")
     }
     
     buildFeatures {
@@ -160,8 +158,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
-    // OpenCV 4.1.2 AAR — matches the version statically linked in Vastmindz's librppg_core.so
-    // This eliminates the ABI mismatch SIGSEGV crash during face scan analysis.
-    // NOTE: AHI body scan may break due to missing OpenCV 4.5.5 method signatures.
-    implementation(files("../../../vastmindz_sdk/android/libs/opencv-android-4.1.2.aar"))
+    // OpenCV 4.5.5 is provided transitively by ahi-sdk-bodyscan and is required by
+    // libcontourGenerator.so (symbol _ZN2cv3MatC1Ev). Vastmindz's librppg_core.so is
+    // statically linked against OpenCV at the C++ level and does not import any
+    // org.opencv.* Java classes, so no separate OpenCV 4.1.2 dependency is needed.
 }

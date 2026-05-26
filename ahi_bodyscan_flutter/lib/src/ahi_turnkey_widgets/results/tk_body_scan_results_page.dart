@@ -106,7 +106,9 @@ class _TkBodyScanResultsPageState extends State<TkBodyScanResultsPage>
             ),
         ],
       ),
-      body: FadeTransition(
+      body: SafeArea(
+        top: false,
+        child: FadeTransition(
         opacity: _fadeAnimation,
         child: SlideTransition(
           position: _slideAnimation,
@@ -216,6 +218,7 @@ class _TkBodyScanResultsPageState extends State<TkBodyScanResultsPage>
             ),
           ),
         ),
+      ),
       ),
     );
   }

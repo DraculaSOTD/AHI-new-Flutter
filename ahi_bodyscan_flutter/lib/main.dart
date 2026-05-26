@@ -82,6 +82,14 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
+
+  // Required so MediaQuery.padding / viewPadding report the real system insets
+  // on Android 15+ edge-to-edge (targetSdk 36). Without this Flutter zeroes
+  // them inside Scaffold body and SafeArea-based layouts ignore the nav bar.
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: SystemUiOverlay.values,
+  );
   
   runApp(
     MultiProvider(

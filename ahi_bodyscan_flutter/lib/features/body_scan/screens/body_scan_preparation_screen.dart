@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../../../core/services/logging_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../src/ahi_sdk_turnkey.dart';
 import '../../health_assessment/services/health_assessment_orchestrator.dart';
 import '../../scanning/launchers/ahi_body_scan_launcher.dart';
 
@@ -25,11 +28,19 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
   bool _requestingPermission = true;
   String? _permissionError;
 
+  bool _resourcesReady = false;
+  int _downloadedBytes = 0;
+  int _totalBytes = 0;
+  Timer? _resourcePollTimer;
+  int _resourcePollFailures = 0;
+
   @override
   void initState() {
     super.initState();
     // Request camera permission immediately when screen loads
     _requestCameraPermission();
+    // Observe (don't trigger) the AHI ML-model download started at app boot
+    _checkAndPollResources();
 
     // Advance orchestrator to bodyScan step when entering this screen in assessment mode
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -38,6 +49,59 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
         LoggingService.info('Body scan prep - advancing orchestrator to bodyScan step', tag: 'BodyScanPrep');
         // Manually advance to bodyScan step since we prevented auto-advance after scan 3
         orchestrator.advanceToBodyScan();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _resourcePollTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _checkAndPollResources() async {
+    try {
+      final ready = await AHITurnkey.instance.areResourcesAvailable();
+      if (!mounted) return;
+      if (ready) {
+        setState(() => _resourcesReady = true);
+        return;
+      }
+    } catch (e) {
+      LoggingService.warning('areResourcesAvailable initial check failed', tag: 'BodyScanPrep', context: {'error': e.toString()});
+      // fall through to polling — the SDK may not be done initialising yet
+    }
+
+    _resourcePollTimer?.cancel();
+    _resourcePollTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      try {
+        final size = await AHITurnkey.instance.checkResourcesDownloadSize();
+        final ready = await AHITurnkey.instance.areResourcesAvailable();
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+        setState(() {
+          if (size.length >= 2) {
+            _downloadedBytes = size[0];
+            _totalBytes = size[1];
+          }
+          if (ready) {
+            _resourcesReady = true;
+            timer.cancel();
+          }
+        });
+        _resourcePollFailures = 0;
+      } catch (e) {
+        _resourcePollFailures += 1;
+        if (_resourcePollFailures >= 3) {
+          LoggingService.error('Resource progress poll failed repeatedly; stopping', error: e, tag: 'BodyScanPrep');
+          timer.cancel();
+        }
       }
     });
   }
@@ -111,6 +175,10 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    if (!_resourcesReady) ...[
+                      _buildResourceDownloadCard(),
+                      const SizedBox(height: 24),
+                    ],
                     // Instructions card
                     Card(
                       child: Padding(
@@ -323,7 +391,9 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
                 width: double.infinity,
                 height: AppDimensions.buttonHeightLarge,
                 child: ElevatedButton(
-                  onPressed: (_requestingPermission || !_cameraPermissionGranted)
+                  onPressed: (_requestingPermission ||
+                          !_cameraPermissionGranted ||
+                          !_resourcesReady)
                       ? null
                       : () => AHIBodyScanLauncher.launch(
                             context,
@@ -343,9 +413,11 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
                           ),
                         )
                       : Text(
-                          _cameraPermissionGranted
-                              ? 'Start Body Scan'
-                              : 'Camera Permission Required',
+                          !_cameraPermissionGranted
+                              ? 'Camera Permission Required'
+                              : !_resourcesReady
+                                  ? 'Preparing scan models…'
+                                  : 'Start Body Scan',
                           style: const TextStyle(fontSize: 18),
                         ),
                 ),
@@ -353,6 +425,73 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildResourceDownloadCard() {
+    final hasSize = _totalBytes > 0;
+    final fraction = hasSize ? (_downloadedBytes / _totalBytes).clamp(0.0, 1.0) : 0.0;
+    final percent = hasSize ? (fraction * 100).toStringAsFixed(0) : null;
+    final downloadedMb = (_downloadedBytes / (1024 * 1024)).toStringAsFixed(1);
+    final totalMb = (_totalBytes / (1024 * 1024)).toStringAsFixed(1);
+
+    return Container(
+      padding: const EdgeInsets.all(AppDimensions.paddingLarge),
+      decoration: BoxDecoration(
+        color: AppColors.info.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.download_rounded, color: AppColors.info, size: 22),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Downloading scan models',
+                  style: AppTypography.bodyLarge.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              if (percent != null)
+                Text(
+                  '$percent%',
+                  style: AppTypography.bodyLarge.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.info,
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LinearProgressIndicator(
+              value: hasSize ? fraction : null,
+              minHeight: 8,
+              backgroundColor: AppColors.textSecondary.withValues(alpha: 0.12),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryPurple),
+            ),
+          ),
+          if (hasSize) ...[
+            const SizedBox(height: 8),
+            Text(
+              '$downloadedMb / $totalMb MB',
+              style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
+            ),
+          ],
+          const SizedBox(height: 12),
+          Text(
+            'Your first scan needs ML models. This happens once — you can wait here.',
+            style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
+          ),
+        ],
       ),
     );
   }
