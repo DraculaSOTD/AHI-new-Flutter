@@ -10,15 +10,26 @@ class RiveHUDOverlay extends StatefulWidget {
   final String guideText;
   final String contextText;
   final String bpmValue;
+  // Per-vital text-run values for the Rive HUD tiles. Null shows '--'.
+  final String? rrValue;
+  final String? spo2Value;
+  final String? hrvValue;
+  final String? siValue;
+  final String? bpValue;
   final Map<String, bool> completionStates;
   final VoidCallback? onBackTapped;
-  
+
   const RiveHUDOverlay({
     super.key,
     required this.haloState,
     required this.guideText,
     required this.contextText,
     this.bpmValue = '--',
+    this.rrValue,
+    this.spo2Value,
+    this.hrvValue,
+    this.siValue,
+    this.bpValue,
     this.completionStates = const {},
     this.onBackTapped,
   });
@@ -29,6 +40,8 @@ class RiveHUDOverlay extends StatefulWidget {
 
 class _RiveHUDOverlayState extends State<RiveHUDOverlay> {
   StateMachineController? _controller;
+  Artboard? _artboard;
+  bool _ranInitialTextRunProbe = false;
   SMINumber? _haloStateInput;
   SMIBool? _isCalibratedInput;
   SMIBool? _bpmCompleteInput;
@@ -40,7 +53,8 @@ class _RiveHUDOverlayState extends State<RiveHUDOverlay> {
   
   void _onRiveInit(Artboard artboard) {
     LoggingService.info('Initializing artboard', tag: 'RiveHUD');
-    
+    _artboard = artboard;
+
     // Get the state machine controller
     final controller = StateMachineController.fromArtboard(
       artboard,
@@ -76,6 +90,7 @@ class _RiveHUDOverlayState extends State<RiveHUDOverlay> {
       
       // Set initial values
       _updateRiveInputs();
+      _updateTextRuns();
     } else {
       LoggingService.error('State machine controller not found', tag: 'RiveHUD');
     }
@@ -97,6 +112,58 @@ class _RiveHUDOverlayState extends State<RiveHUDOverlay> {
     }
 
     _updateRiveInputs();
+    _updateTextRuns();
+  }
+
+  void _updateTextRuns() {
+    final ab = _artboard;
+    if (ab == null) return;
+    void set(String name, String value) {
+      try {
+        ab.component<TextValueRun>(name)?.text = value;
+      } catch (_) {}
+    }
+
+    // BPM in the Rive scene appears under at least two names — `bpmText` for the
+    // per-tile display and `bpmTop` for the big number above the face oval. Set
+    // every plausible variant; whichever the scene actually uses wins, the rest
+    // no-op silently.
+    set('bpmTop',   widget.bpmValue);
+    set('bpmText',  widget.bpmValue);
+    set('bpmValue', widget.bpmValue);
+    set('BPMvar',   widget.bpmValue);
+
+    set('rrTop',    widget.rrValue   ?? '--');
+    set('rrText',   widget.rrValue   ?? '--');
+
+    set('sp02Top',  widget.spo2Value ?? '--');
+    set('sp02Text', widget.spo2Value ?? '--');
+
+    set('hrvTop',   widget.hrvValue  ?? '--');
+    set('hrvText',  widget.hrvValue  ?? '--');
+
+    set('siTop',    widget.siValue   ?? '--');
+    set('siText',   widget.siValue   ?? '--');
+
+    set('bpTop',    widget.bpValue   ?? '--');
+    set('bpText',   widget.bpValue   ?? '--');
+
+    if (!_ranInitialTextRunProbe) {
+      _ranInitialTextRunProbe = true;
+      const candidates = [
+        'bpmTop','bpmText','bpmValue','BPMvar',
+        'rrTop','rrText',
+        'sp02Top','sp02Text',
+        'hrvTop','hrvText',
+        'siTop','siText',
+        'bpTop','bpText',
+      ];
+      for (final n in candidates) {
+        final found = ab.component<TextValueRun>(n) != null;
+        LoggingService.debug('Rive run probe: $n -> $found',
+            tag: 'RiveHUD');
+      }
+    }
   }
 
   void _updateRiveInputs() {
@@ -233,100 +300,10 @@ class _RiveHUDOverlayState extends State<RiveHUDOverlay> {
           ),
         ),
 
-        // Bottom metrics panel
-        Positioned(
-          bottom: 100,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.95),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildMetric(
-                    icon: Icons.favorite,
-                    value: widget.bpmValue,
-                    unit: 'BPM',
-                    color: Colors.red,
-                  ),
-                  Container(
-                    width: 1,
-                    height: 40,
-                    color: AppColors.divider,
-                  ),
-                  _buildMetric(
-                    icon: Icons.timer,
-                    value: '${_getProgress()}',
-                    unit: '%',
-                    color: AppColors.primaryBlue,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
   
-  Widget _buildMetric({
-    required IconData icon,
-    required String value,
-    required String unit,
-    required Color color,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          Icon(icon, color: color, size: 24),
-          const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                value,
-                style: AppTypography.headingSmall.copyWith(
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              Text(
-                unit,
-                style: AppTypography.bodySmall.copyWith(
-                  color: AppColors.textTertiary,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  int _getProgress() {
-    final total = widget.completionStates.length;
-    if (total == 0) return 0;
-    final completed = widget.completionStates.values
-        .where((isComplete) => isComplete)
-        .length;
-    return ((completed / total) * 100).round();
-  }
-
   @override
   void dispose() {
     _controller?.dispose();

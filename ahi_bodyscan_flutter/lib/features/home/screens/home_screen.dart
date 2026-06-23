@@ -8,8 +8,8 @@ import '../../../services/profile_service.dart';
 import '../../../models/user_profile.dart';
 import '../../profile/widgets/profile_card.dart';
 import '../../profile/widgets/add_profile_card.dart';
-import '../../../src/ahi_turnkey_launchers/tk_body_scan_launcher.dart';
 import '../../../src/ahi_turnkey_launchers/tk_finger_scan_launcher.dart';
+import '../../scanning/launchers/ahi_body_scan_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -92,12 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _launchBodyScan(BuildContext context) {
-    final launcher = TkBodyScanLauncher(
-      exitPressed: () {
-        // Handle exit - could navigate back to home or show success message
-      },
-    );
-    launcher.launch(context);
+    // Route through the AHI Turnkey-backed launcher — TkBodyScanLauncher pushed
+    // TkNativeScanningPage which sits stuck on "Launching native scanner…"
+    // whenever the underlying method-channel call hangs. AHIBodyScanLauncher
+    // talks to AHITurnkey.instance directly and surfaces errors as dialogs.
+    AHIBodyScanLauncher.launch(context, isPartOfAssessment: false);
   }
 
   void _launchFaceScan(BuildContext context) {
@@ -344,16 +343,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         subtitle: 'Measurements',
                         color: AppColors.secondaryBlue,
                         onTap: () => _launchBodyScan(context),
-                      ),
-                    ),
-                    SizedBox(
-                      width: cardWidth,
-                      child: _buildActionCard(
-                        icon: Icons.fingerprint,
-                        title: 'Finger Scan',
-                        subtitle: 'HRV analysis',
-                        color: AppColors.accentPurple,
-                        onTap: () => _launchFingerScan(context),
                       ),
                     ),
                     SizedBox(

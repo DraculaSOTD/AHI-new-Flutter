@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'core/config/app_config.dart';
 import 'core/theme/app_theme.dart';
 import 'core/routing/app_router.dart';
@@ -11,8 +12,18 @@ import 'core/services/logging_service.dart';
 import 'src/ahi_turnkey_services/ahi_app_init_service.dart';
 import 'features/health_assessment/services/health_assessment_orchestrator.dart';
 
+// Bumped on every meaningful code change so the user can confirm via
+// `adb logcat -s flutter` exactly which build is on the device. If this string
+// doesn't appear in logcat on app launch, the running APK is stale.
+const String kBuildMarker = 'bodyscan-deep-log-v16';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  LoggingService.info('App build marker', tag: 'AppBoot', context: {
+    'buildId': kBuildMarker,
+    'launchedAt': DateTime.now().toIso8601String(),
+  });
 
   // Initialize app configuration
   try {
@@ -101,8 +112,50 @@ void main() async {
   );
 }
 
-class AHIBodyScanApp extends StatelessWidget {
+class AHIBodyScanApp extends StatefulWidget {
   const AHIBodyScanApp({super.key});
+
+  @override
+  State<AHIBodyScanApp> createState() => _AHIBodyScanAppState();
+}
+
+class _AHIBodyScanAppState extends State<AHIBodyScanApp>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    // Keep the screen on for the entire time the app is in the foreground —
+    // the assessment and scans are long-running and must not be interrupted by
+    // the device locking/dimming. Best-effort; never blocks app launch.
+    _enableWakelock();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    // The OS keep-screen-on flag only applies to the foreground window and some
+    // OEMs drop it across background/foreground transitions — re-assert on
+    // resume so the screen never starts sleeping after returning to the app.
+    if (state == AppLifecycleState.resumed) {
+      _enableWakelock();
+    }
+  }
+
+  Future<void> _enableWakelock() async {
+    try {
+      await WakelockPlus.enable();
+    } catch (e) {
+      LoggingService.warning('Wakelock enable failed',
+          tag: 'AHIBodyScanApp', context: {'error': e.toString()});
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

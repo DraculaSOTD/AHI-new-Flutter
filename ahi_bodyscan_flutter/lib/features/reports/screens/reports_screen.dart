@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/services/logging_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../services/profile_service.dart';
+import '../../health_assessment/models/health_assessment.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -14,6 +17,51 @@ class ReportsScreen extends StatefulWidget {
 
 class _ReportsScreenState extends State<ReportsScreen> {
   final ProfileService _profileService = ProfileService();
+  List<HealthAssessment> _history = [];
+  bool _loadingHistory = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadHistory();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Refresh whenever the tab is reactivated. Cheap — reads one SharedPrefs
+    // key and decodes the JSON list.
+    _loadHistory();
+  }
+
+  Future<void> _loadHistory() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getStringList('assessment_history') ?? [];
+      final decoded = <HealthAssessment>[];
+      for (final s in raw) {
+        try {
+          decoded.add(HealthAssessment.fromJsonString(s));
+        } catch (e) {
+          LoggingService.warning(
+            'Skipping malformed assessment_history entry',
+            tag: 'ReportsScreen',
+            context: {'error': e.toString()},
+          );
+        }
+      }
+      if (!mounted) return;
+      setState(() {
+        _history = decoded;
+        _loadingHistory = false;
+      });
+    } catch (e) {
+      LoggingService.error('Failed to load assessment history',
+          error: e, tag: 'ReportsScreen');
+      if (!mounted) return;
+      setState(() => _loadingHistory = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,29 +69,157 @@ class _ReportsScreenState extends State<ReportsScreen> {
       appBar: AppBar(
         title: const Text('Reports'),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppDimensions.paddingLarge),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Health Assessment Card (always visible at top)
-            _buildHealthAssessmentCard(),
+      body: RefreshIndicator(
+        onRefresh: _loadHistory,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(AppDimensions.paddingLarge),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Health Assessment Card (always visible at top)
+              _buildHealthAssessmentCard(),
 
-            const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-            // Scan History Section
-            Text(
-              'Scan History',
-              style: AppTypography.headingSmall.copyWith(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.bold,
+              // Scan History Section
+              Text(
+                'Scan History',
+                style: AppTypography.headingSmall.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Empty state for reports (will be replaced with actual reports later)
-            _buildEmptyReportsSection(),
-          ],
+              if (_loadingHistory)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else if (_history.isEmpty)
+                _buildEmptyReportsSection()
+              else
+                Column(
+                  children: _history
+                      .map((a) => Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: _buildHistoryCard(a),
+                          ))
+                      .toList(),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHistoryCard(HealthAssessment a) {
+    final completed = a.completedAt;
+    final dateLabel = completed != null
+        ? '${completed.year}-${completed.month.toString().padLeft(2, '0')}-${completed.day.toString().padLeft(2, '0')} '
+            '${completed.hour.toString().padLeft(2, '0')}:${completed.minute.toString().padLeft(2, '0')}'
+        : 'Date unknown';
+    final risk = a.overallRiskLevel;
+    final Color riskColor;
+    switch (risk) {
+      case 'critical':
+      case 'high':
+        riskColor = AppColors.error;
+        break;
+      case 'moderate':
+        riskColor = AppColors.warning;
+        break;
+      case 'low':
+        riskColor = AppColors.success;
+        break;
+      default:
+        riskColor = AppColors.textTertiary;
+    }
+    final vitals = a.vitalSigns;
+    final hr = vitals?.averageHeartRate;
+    final bodyFat = a.bodyScanResult?.bodyfatInPercent;
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.backgroundCard,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        border: Border.all(color: AppColors.borderLight),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+          onTap: () => context.push('/reports/assessment', extra: a),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.assignment_turned_in, color: riskColor),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Health Assessment',
+                        style: AppTypography.headingSmall.copyWith(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: riskColor.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        risk.toUpperCase(),
+                        style: AppTypography.bodySmall.copyWith(
+                          color: riskColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  dateLabel,
+                  style: AppTypography.bodySmall.copyWith(
+                    color: AppColors.textTertiary,
+                  ),
+                ),
+                if (hr != null || bodyFat != null) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      if (hr != null) ...[
+                        Icon(Icons.favorite,
+                            size: 14, color: AppColors.textSecondary),
+                        const SizedBox(width: 4),
+                        Text('${hr.round()} bpm',
+                            style: AppTypography.bodySmall.copyWith(
+                                color: AppColors.textSecondary)),
+                        const SizedBox(width: 12),
+                      ],
+                      if (bodyFat != null) ...[
+                        Icon(Icons.accessibility_new,
+                            size: 14, color: AppColors.textSecondary),
+                        const SizedBox(width: 4),
+                        Text('${bodyFat.toStringAsFixed(1)}% BF',
+                            style: AppTypography.bodySmall.copyWith(
+                                color: AppColors.textSecondary)),
+                      ],
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
     );

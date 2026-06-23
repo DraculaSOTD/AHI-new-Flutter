@@ -30,10 +30,10 @@ import '../../features/body_scan/screens/body_scan_screen.dart';
 import '../../features/health_assessment/screens/health_assessment_disclaimer_screen.dart';
 import '../../features/health_assessment/screens/anxiety_survey_screen.dart';
 import '../../features/health_assessment/screens/depression_survey_screen.dart';
-import '../../features/health_assessment/screens/fitness_screening_questionnaire_screen.dart';
 import '../../features/health_assessment/screens/fitness_step_test_preparation_screen.dart';
 import '../../features/health_assessment/screens/fitness_step_test_active_screen.dart';
 import '../../features/health_assessment/screens/health_assessment_summary_screen.dart';
+import '../../features/health_assessment/models/health_assessment.dart';
 
 // Navigation shell for bottom nav
 import '../../shared/widgets/main_navigation_shell.dart';
@@ -159,6 +159,7 @@ class AppRouter {
           final extra = state.extra as Map<String, dynamic>?;
           return FaceScanCameraScreen(
             isPartOfAssessment: extra?['isPartOfAssessment'] as bool? ?? false,
+            scanType: extra?['scanType'] as String?,
           );
         },
       ),
@@ -196,10 +197,6 @@ class AppRouter {
         builder: (context, state) => const DepressionSurveyScreen(),
       ),
       GoRoute(
-        path: '/health-assessment/fitness-screening',
-        builder: (context, state) => const FitnessScreeningQuestionnaireScreen(),
-      ),
-      GoRoute(
         path: '/health-assessment/step-test-prep',
         builder: (context, state) => const FitnessStepTestPreparationScreen(),
       ),
@@ -215,6 +212,14 @@ class AppRouter {
       GoRoute(
         path: '/health-assessment/summary',
         builder: (context, state) => const HealthAssessmentSummaryScreen(),
+      ),
+
+      // Read-only view of a saved assessment, opened from Reports history.
+      GoRoute(
+        path: '/reports/assessment',
+        builder: (context, state) => HealthAssessmentSummaryScreen(
+          historyAssessment: state.extra as HealthAssessment,
+        ),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

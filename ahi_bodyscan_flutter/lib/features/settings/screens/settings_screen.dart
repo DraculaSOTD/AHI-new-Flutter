@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/services/logging_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
 
@@ -84,6 +86,29 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('Help & Support'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(Icons.bug_report_outlined,
+                color: AppColors.primaryPurple),
+            title: const Text('Share diagnostic logs'),
+            subtitle: const Text(
+                'Email or message recent app logs to support / dev'),
+            onTap: () async {
+              try {
+                final file = await LoggingService.writeLogsToTempFile();
+                await Share.shareXFiles(
+                  [XFile(file.path)],
+                  subject: 'AHI BodyScan diagnostic logs',
+                  text: 'Diagnostic logs from AHI BodyScan',
+                );
+              } catch (e) {
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Could not share logs: $e')),
+                );
+              }
+            },
           ),
           const Divider(),
           ListTile(

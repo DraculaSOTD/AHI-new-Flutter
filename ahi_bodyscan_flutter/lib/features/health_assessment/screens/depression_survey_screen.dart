@@ -110,8 +110,10 @@ class _DepressionSurveyScreenState extends State<DepressionSurveyScreen> {
 
     if (!mounted) return;
 
-    // Navigate to next step (fitness screening)
-    context.push('/health-assessment/fitness-screening'); // Using push to maintain back stack
+    // Navigate to the first face scan — fitness-screening was removed from
+    // the assessment flow per spec (Anxiety → Depression → 3× Face Scan →
+    // Body Scan → Step Test).
+    context.push('/scan/face/camera', extra: {'isPartOfAssessment': true});
   }
 
   void _showCriticalWarning() {

@@ -164,6 +164,33 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
     await _advanceToNextStep();
   }
 
+  /// Save the post-exercise face scan from the step-test cool-down. Its HR
+  /// becomes `fitnessTest.postExerciseHeartRate` and we advance to summary —
+  /// we explicitly do NOT append to `vitalSigns.measurements` because that
+  /// would skew the resting-vitals average sent to Lambda.
+  Future<void> savePostExerciseFaceScan(FaceScanMeasurement measurement) async {
+    if (_currentAssessment == null) return;
+    final fitness = _currentAssessment!.fitnessTest;
+    final updatedFitness = fitness?.copyWith(
+      postExerciseHeartRate: measurement.heartRate ?? 0,
+      completedAt: DateTime.now(),
+    );
+    _currentAssessment = _currentAssessment!.copyWith(
+      fitnessTest: updatedFitness,
+      postExerciseFaceScan: measurement,
+    );
+    LoggingService.success(
+      'Saved post-exercise face scan',
+      tag: 'HealthAssessmentOrch',
+      context: {
+        'postExerciseHR': measurement.heartRate ?? 0,
+        'rr': measurement.respiratoryRate ?? 0,
+        'spo2': measurement.oxygenSaturation ?? 0,
+      },
+    );
+    await _advanceToNextStep();
+  }
+
   /// Save face scan measurement (1 of 3)
   Future<void> saveFaceScanMeasurement(FaceScanMeasurement measurement) async {
     if (_currentAssessment == null) return;
@@ -184,20 +211,9 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
 
     LoggingService.success('Saved face scan', tag: 'HealthAssessmentOrch', context: {'count': updatedMeasurements.length, 'total': 3});
 
-    // Advance based on how many scans we've done
-    if (updatedMeasurements.length < 3) {
-      // Go to break screen, then next face scan
-      await _advanceToNextStep();
-    } else {
-      // All 3 scans complete - mark scan 3 as complete
-      // DON'T auto-advance to bodyScan step - let Face Scan Camera navigate to body scan prep
-      LoggingService.success('All 3 face scans complete - waiting for UI navigation to body scan', tag: 'HealthAssessmentOrch');
-      _completedSteps.add(AssessmentStep.faceScan3);
-
-      // Save state and notify listeners, but don't advance step
-      await _saveToStorage();
-      notifyListeners();
-    }
+    // Just accumulate + advance. Lambda submission is deferred until the very
+    // end (assessment summary screen) so the user only sees one results page.
+    await _advanceToNextStep();
   }
 
   /// Advance to body scan step (called when entering body scan prep screen)
@@ -211,17 +227,37 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
 
   /// Save body scan results
   Future<void> saveBodyScan(BodyScanResult bodyScanResult) async {
-    if (_currentAssessment == null) return;
+    LoggingService.info('saveBodyScan entry', tag: 'HealthAssessmentOrch');
+    if (_currentAssessment == null) {
+      LoggingService.warning('saveBodyScan called with null assessment',
+          tag: 'HealthAssessmentOrch');
+      return;
+    }
     _currentAssessment = _currentAssessment!.copyWith(
       bodyScanResult: bodyScanResult,
     );
     await _advanceToNextStep();
+    LoggingService.success('saveBodyScan exit',
+        tag: 'HealthAssessmentOrch',
+        context: {'currentStep': _currentStep.toString()});
   }
 
   /// Skip optional body scan
   Future<void> skipBodyScan() async {
     _completedSteps.add(AssessmentStep.bodyScan);
     await _advanceToNextStep();
+  }
+
+  /// Generic in-place update of the current assessment. Used by the summary
+  /// screen to stash the end-of-assessment Lambda result without going through
+  /// a dedicated save method.
+  Future<void> updateAssessment(
+    HealthAssessment Function(HealthAssessment) mutate,
+  ) async {
+    if (_currentAssessment == null) return;
+    _currentAssessment = mutate(_currentAssessment!);
+    await _saveToStorage();
+    notifyListeners();
   }
 
   /// Complete the entire assessment
@@ -234,10 +270,17 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
       currentStep: _getStepIndex(AssessmentStep.complete),
     );
 
+    // Capture the id before _clearCurrentAssessment nulls _currentAssessment.
+    // Without this, the log line below threw `Null check operator used on a
+    // null value` and the exception killed the caller's await — which is
+    // what made Complete Assessment require two taps.
+    final completedId = _currentAssessment!.id;
+
     await _saveToCompletedStorage();
     await _clearCurrentAssessment();
 
-    LoggingService.success('Assessment completed', tag: 'HealthAssessmentOrch', context: {'id': _currentAssessment!.id});
+    LoggingService.success('Assessment completed',
+        tag: 'HealthAssessmentOrch', context: {'id': completedId});
     notifyListeners();
   }
 
@@ -376,7 +419,16 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
     }
   }
 
-  /// Determine the next step based on current state
+  /// Determine the next step based on current state.
+  ///
+  /// New flow (leaner — no break screens, step test moved to after body scan):
+  ///   disclaimer → anxiety → depression → faceScan1 → faceScan2 → faceScan3 →
+  ///   bodyScan → stepTestPrep → stepTestActive → postExerciseFaceScan →
+  ///   summary → complete.
+  ///
+  /// `fitnessScreening` is no longer in the live flow — left in the switch
+  /// only so persisted assessments that paused there can be resumed forward
+  /// to stepTestPrep.
   AssessmentStep? _getNextStep() {
     switch (_currentStep) {
       case AssessmentStep.disclaimer:
@@ -386,12 +438,32 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
         return AssessmentStep.depressionSurvey;
 
       case AssessmentStep.depressionSurvey:
-        return AssessmentStep.fitnessScreening;
+        return AssessmentStep.faceScan1;
+
+      case AssessmentStep.faceScan1:
+        return AssessmentStep.faceScan2;
+
+      // break1 / break2 stay in the enum for backwards-compat with stored
+      // assessments but are no longer reachable from the linear flow.
+      case AssessmentStep.break1:
+        return AssessmentStep.faceScan2;
+
+      case AssessmentStep.faceScan2:
+        return AssessmentStep.faceScan3;
+
+      case AssessmentStep.break2:
+        return AssessmentStep.faceScan3;
+
+      case AssessmentStep.faceScan3:
+        return AssessmentStep.bodyScan;
+
+      case AssessmentStep.bodyScan:
+        return AssessmentStep.stepTestPrep;
 
       case AssessmentStep.fitnessScreening:
-        // Check if safe for exercise
-        final isSafe = _currentAssessment?.fitnessTest?.isSafeForExercise ?? false;
-        return isSafe ? AssessmentStep.stepTestPrep : AssessmentStep.faceScan1;
+        // Legacy-only — the screening step is no longer reachable from the
+        // live flow. Resume forward so old persisted sessions don't strand.
+        return AssessmentStep.stepTestPrep;
 
       case AssessmentStep.stepTestPrep:
         return AssessmentStep.stepTestActive;
@@ -400,24 +472,6 @@ class HealthAssessmentOrchestrator extends ChangeNotifier {
         return AssessmentStep.postExerciseFaceScan;
 
       case AssessmentStep.postExerciseFaceScan:
-        return AssessmentStep.faceScan1;
-
-      case AssessmentStep.faceScan1:
-        return AssessmentStep.break1;
-
-      case AssessmentStep.break1:
-        return AssessmentStep.faceScan2;
-
-      case AssessmentStep.faceScan2:
-        return AssessmentStep.break2;
-
-      case AssessmentStep.break2:
-        return AssessmentStep.faceScan3;
-
-      case AssessmentStep.faceScan3:
-        return AssessmentStep.bodyScan; // Optional
-
-      case AssessmentStep.bodyScan:
         return AssessmentStep.summary;
 
       case AssessmentStep.summary:

@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '../../main.dart' show kBuildMarker;
 
 /// Centralized logging service for AHI BodyScan Flutter App
 ///
@@ -16,6 +21,31 @@ class LoggingService {
 
   /// Enable/disable logging (can be toggled based on environment)
   static bool isEnabled = kDebugMode; // Only log in debug mode by default
+
+  /// In-memory ring buffer of recent formatted log lines, kept independent of
+  /// [isEnabled] so non-developer testers on release builds can still share
+  /// diagnostics. See [writeLogsToTempFile].
+  static final List<String> _ringBuffer = <String>[];
+  static const int _ringBufferMaxLines = 2000;
+
+  /// Snapshot of every line in the ring buffer joined with newlines.
+  static String getBufferedLogs() => _ringBuffer.join('\n');
+
+  /// Writes the in-memory log buffer to a file in the OS temp dir and returns
+  /// the file. The Settings screen's "Share diagnostic logs" tile hands this
+  /// to share_plus so the user can WhatsApp/Gmail it back to the developer.
+  static Future<File> writeLogsToTempFile() async {
+    final dir = await getTemporaryDirectory();
+    final f = File('${dir.path}/ahi-bodyscan-logs.txt');
+    final header = [
+      'AHI BodyScan diagnostic log',
+      'Generated at ${DateTime.now().toIso8601String()}',
+      'Build marker: $kBuildMarker',
+      '',
+    ].join('\n');
+    await f.writeAsString('$header${getBufferedLogs()}');
+    return f;
+  }
 
   /// Log debug messages (for detailed diagnostic information)
   ///
@@ -123,7 +153,16 @@ class LoggingService {
     }
 
     // Print the main log message
-    debugPrint(buffer.toString());
+    final line = buffer.toString();
+    debugPrint(line);
+
+    // Push into the ring buffer regardless of debug mode, so a release-build
+    // tester can still share recent logs via Settings.
+    _ringBuffer.add(line);
+    if (_ringBuffer.length > _ringBufferMaxLines) {
+      _ringBuffer.removeRange(
+          0, _ringBuffer.length - _ringBufferMaxLines);
+    }
 
     // Print error details if provided
     if (error != null) {

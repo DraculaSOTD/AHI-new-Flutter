@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../services/profile_service.dart';
 import '../services/health_assessment_orchestrator.dart';
 
 /// Health Assessment Disclaimer Screen
@@ -365,6 +366,25 @@ class _HealthAssessmentDisclaimerScreenState
 
   Future<void> _acceptAndContinue() async {
     final orchestrator = context.read<HealthAssessmentOrchestrator>();
+
+    // The orchestrator's persistence methods (saveAnxietySurvey,
+    // saveFaceScanMeasurement, etc.) early-return when _currentAssessment is
+    // null. Without this initialization step every save downstream is a silent
+    // no-op, which is what was stranding the user on the first face scan in
+    // the 3-scan assessment.
+    final profileId = ProfileService().selectedProfile?.id;
+    if (profileId == null) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Select a profile before starting an assessment.',
+          ),
+        ),
+      );
+      return;
+    }
+    await orchestrator.startNewAssessment(profileId);
     await orchestrator.acceptDisclaimer();
 
     if (!mounted) return;

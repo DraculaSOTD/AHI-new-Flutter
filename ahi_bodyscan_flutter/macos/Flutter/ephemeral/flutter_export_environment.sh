@@ -1,6 +1,6 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/calvin/Websites/AHI-flutter/flutter"
+export "FLUTTER_ROOT=/home/calvin/.local/flutter-sdk"
 export "FLUTTER_APPLICATION_PATH=/home/calvin/Websites/AHI-new Flutter/ahi_bodyscan_flutter"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"

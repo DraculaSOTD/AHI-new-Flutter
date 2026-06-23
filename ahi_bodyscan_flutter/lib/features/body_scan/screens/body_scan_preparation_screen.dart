@@ -395,10 +395,22 @@ class _BodyScanPreparationScreenState extends State<BodyScanPreparationScreen> {
                           !_cameraPermissionGranted ||
                           !_resourcesReady)
                       ? null
-                      : () => AHIBodyScanLauncher.launch(
+                      : () {
+                          LoggingService.info(
+                            'User tapped Start Body Scan',
+                            tag: 'BodyScanPrep',
+                            context: {
+                              'isPartOfAssessment': inAssessment,
+                              'cameraPermissionGranted':
+                                  _cameraPermissionGranted,
+                              'resourcesReady': _resourcesReady,
+                            },
+                          );
+                          AHIBodyScanLauncher.launch(
                             context,
                             isPartOfAssessment: inAssessment,
-                          ),
+                          );
+                        },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryPurple,
                     disabledBackgroundColor: AppColors.primaryPurple.withValues(alpha: 0.5),

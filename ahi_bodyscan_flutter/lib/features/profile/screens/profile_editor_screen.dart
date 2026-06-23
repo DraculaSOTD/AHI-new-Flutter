@@ -204,7 +204,15 @@ class _ProfileEditorScreenState extends State<ProfileEditorScreen> {
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          // Bake the system gesture-nav inset into the bottom padding so the
+          // "Create / Update Profile" button isn't hidden under the nav bar
+          // when the form is fully scrolled.
+          padding: EdgeInsets.fromLTRB(
+            16,
+            16,
+            16,
+            16 + MediaQuery.viewPaddingOf(context).bottom,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

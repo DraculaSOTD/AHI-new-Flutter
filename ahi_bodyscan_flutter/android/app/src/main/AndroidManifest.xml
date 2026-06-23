@@ -10,6 +10,12 @@
     <!-- Internet permission for WebSocket connection -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Keep the device awake and ask the OEM to exempt us from battery
+         optimization so aggressive launchers (Xiaomi/Redmi/Oppo/Vivo) don't
+         kill the native scan worker mid-scan. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <application
         android:label="AHI BodyScan"
         android:name="${applicationName}"

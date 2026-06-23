@@ -212,28 +212,6 @@ class _FitnessStepTestActiveScreenState
                 ],
               ),
             ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.info.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.face, color: AppColors.info, size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Next: Complete a face scan to measure your recovery heart rate',
-                      style: AppTypography.bodySmall.copyWith(
-                        color: AppColors.info,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
         actions: [
@@ -242,7 +220,7 @@ class _FitnessStepTestActiveScreenState
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryPurple,
             ),
-            child: const Text('Continue to Face Scan'),
+            child: const Text('Continue'),
           ),
         ],
       ),
@@ -428,7 +406,6 @@ class _FitnessStepTestActiveScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _buildStatCard('Steps', '$_currentStep'),
-                          _buildStatCard('BPM', '$_bpm'),
                           _buildStatCard('Beats', '$_currentBeat'),
                         ],
                       ),

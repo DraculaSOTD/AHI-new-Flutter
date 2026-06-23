@@ -275,6 +275,13 @@ class LambdaService {
       diabetesRisk: risks['risk_adj_metSComp'] ?? 'low',
       metabolicRisk: risks['risk_adj_metSComp'] ?? 'low',
       cholesterolRisk: risks['risk_adj_totalCholesterol'] ?? 'low',
+
+      // Full risk breakdown forwarded to the results screen.
+      riskBreakdown: {
+        for (final e in risks.entries)
+          if (e.key.toString().startsWith('risk_adj_') && e.value != null)
+            e.key.toString(): e.value.toString(),
+      },
       
       // Insights
       recommendations: recommendations,
@@ -397,6 +404,10 @@ class HealthAssessmentResult {
   final String? diabetesRisk;
   final String? metabolicRisk;
   final String? cholesterolRisk;
+
+  /// Full lambda risk breakdown: every `risk_adj_*` key → "low"/"medium"/"high".
+  /// Empty when the lambda call wasn't made (fromScanOnly fallback).
+  final Map<String, String> riskBreakdown;
   
   // Insights
   final List<String> recommendations;
@@ -432,6 +443,7 @@ class HealthAssessmentResult {
     this.diabetesRisk,
     this.metabolicRisk,
     this.cholesterolRisk,
+    this.riskBreakdown = const {},
     required this.recommendations,
     required this.insights,
     required this.lambdaSuccess,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../../../core/services/logging_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../services/lambda_service.dart';
+import '../../../services/profile_service.dart';
 import '../services/health_assessment_orchestrator.dart';
 import '../models/health_assessment.dart';
 
@@ -16,13 +19,181 @@ import '../models/health_assessment.dart';
 /// - Averaged vital signs from 3 face scans
 /// - Body scan results (if completed)
 /// - Personalized recommendations
-class HealthAssessmentSummaryScreen extends StatelessWidget {
-  const HealthAssessmentSummaryScreen({super.key});
+class HealthAssessmentSummaryScreen extends StatefulWidget {
+  /// When non-null the screen renders a previously-saved assessment in
+  /// read-only "history" mode: it does not read the live orchestrator,
+  /// re-submit to Lambda, mutate assessment steps on back, or show the
+  /// complete/save actions. Used when opening a report from Reports history.
+  final HealthAssessment? historyAssessment;
+
+  const HealthAssessmentSummaryScreen({super.key, this.historyAssessment});
+
+  @override
+  State<HealthAssessmentSummaryScreen> createState() =>
+      _HealthAssessmentSummaryScreenState();
+}
+
+class _HealthAssessmentSummaryScreenState
+    extends State<HealthAssessmentSummaryScreen> {
+  bool _lambdaInFlight = false;
+  bool _lambdaTried = false;
+
+  /// True when viewing a saved assessment from Reports history.
+  bool get _isHistory => widget.historyAssessment != null;
+
+  @override
+  void initState() {
+    super.initState();
+    // History mode renders a finished, persisted assessment — nothing to submit.
+    if (_isHistory) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _submitLambdaIfNeeded();
+    });
+  }
+
+  /// One-shot Lambda submission at the very end of the assessment. Combines
+  /// the averaged face-scan vitals with the profile demographics and submits
+  /// to the existing `/bha/` endpoint. Cached on the orchestrator so re-entry
+  /// to the summary doesn't trigger a second call.
+  Future<void> _submitLambdaIfNeeded() async {
+    if (_lambdaTried || _lambdaInFlight) return;
+    final orchestrator = context.read<HealthAssessmentOrchestrator>();
+    final assessment = orchestrator.currentAssessment;
+    if (assessment == null) return;
+    if (assessment.lambdaResult != null) return; // already submitted earlier
+
+    setState(() {
+      _lambdaInFlight = true;
+      _lambdaTried = true;
+    });
+
+    try {
+      final scanResults = _averagedScanResults(assessment);
+      final userData = _buildUserData(assessment);
+      LoggingService.info(
+          'Submitting end-of-assessment payload to Lambda',
+          tag: 'AssessmentSummary');
+      final result = await LambdaService.submitForHealthAssessment(
+        scanResults: scanResults,
+        userData: userData,
+      );
+      await orchestrator
+          .updateAssessment((a) => a.copyWith(lambdaResult: result));
+    } catch (e, st) {
+      LoggingService.error('Lambda submission failed',
+          error: e, stackTrace: st, tag: 'AssessmentSummary');
+      // Cache a fromScanOnly fallback so we don't keep retrying.
+      final fallback = HealthAssessmentResult.fromScanOnly(
+          _averagedScanResults(assessment));
+      await orchestrator
+          .updateAssessment((a) => a.copyWith(lambdaResult: fallback));
+    } finally {
+      if (mounted) setState(() => _lambdaInFlight = false);
+    }
+  }
+
+  /// Field-wise average across all face-scan measurements. Null fields are
+  /// skipped so a missing reading on one scan doesn't poison the average.
+  Map<String, dynamic> _averagedScanResults(HealthAssessment a) {
+    final measurements = a.vitalSigns?.measurements ?? const [];
+    num? avg(num? Function(dynamic m) pick) {
+      final values = measurements.map(pick).whereType<num>().toList();
+      if (values.isEmpty) return null;
+      final sum = values.fold<num>(0, (s, v) => s + v);
+      return sum / values.length;
+    }
+    final bpm = avg((m) => m.heartRate as num?);
+    final rr = avg((m) => m.respiratoryRate as num?);
+    final spo2 = avg((m) => m.oxygenSaturation as num?);
+    final sys = avg((m) => m.systolicBP as num?);
+    final dia = avg((m) => m.diastolicBP as num?);
+    final hrv = avg((m) => m.heartRateVariability as num?);
+
+    // Most-common stress label across the three; last wins on tie.
+    final stressLabels = measurements
+        .map((m) => m.stressLevel?.toString())
+        .whereType<String>()
+        .where((s) => s.isNotEmpty)
+        .toList();
+    String? stressLabel;
+    if (stressLabels.isNotEmpty) {
+      final counts = <String, int>{};
+      for (final s in stressLabels) {
+        counts[s] = (counts[s] ?? 0) + 1;
+      }
+      stressLabel = counts.entries
+          .reduce((a, b) => a.value >= b.value ? a : b)
+          .key;
+    }
+
+    final scanResults = <String, dynamic>{
+      'heartRate': bpm?.round() ?? 0,
+      'respiratoryRate': rr?.round() ?? 0,
+      'oxygenSaturation': spo2?.round() ?? 0,
+      'systolicBP': sys?.round() ?? 0,
+      'diastolicBP': dia?.round() ?? 0,
+      'heartRateVariability': hrv?.round() ?? 0,
+      'stressLevel': stressLabel ?? 'Unknown',
+      'stressStatus': stressLabel ?? '',
+    };
+
+    // Tack on body-scan measurements when the user completed that step.
+    final body = a.bodyScanResult;
+    if (body != null) {
+      scanResults['chestCircumference'] = body.chestInCm;
+      scanResults['waistCircumference'] = body.waistInCm;
+      scanResults['hipCircumference'] = body.hipsInCm;
+      scanResults['thighCircumference'] = body.thighInCm;
+      scanResults['inseam'] = body.inseamInCm;
+      scanResults['bodyFatPercent'] = body.bodyfatInPercent;
+      scanResults['weightPredictionKg'] = body.weightPredictInKg;
+    }
+
+    // Tack on step-test results when the user completed the fitness test.
+    final fitness = a.fitnessTest;
+    if (fitness != null) {
+      scanResults['restingHeartRate'] = fitness.restingHeartRate;
+      scanResults['postExerciseHeartRate'] = fitness.postExerciseHeartRate;
+    }
+
+    // Full post-exercise (step-test cool-down) face scan vitals — the user
+    // wants these treated as step-test results in the Lambda payload, not
+    // averaged into the resting baseline.
+    final post = a.postExerciseFaceScan;
+    if (post != null) {
+      scanResults['postExerciseHeartRate'] = post.heartRate ?? 0;
+      scanResults['postExerciseRespiratoryRate'] = post.respiratoryRate ?? 0;
+      scanResults['postExerciseOxygenSaturation'] =
+          post.oxygenSaturation ?? 0;
+      scanResults['postExerciseSystolicBP'] = post.systolicBP ?? 0;
+      scanResults['postExerciseDiastolicBP'] = post.diastolicBP ?? 0;
+      scanResults['postExerciseHeartRateVariability'] =
+          post.heartRateVariability ?? 0;
+      scanResults['postExerciseStressLevel'] =
+          post.stressLevel ?? 'Unknown';
+      scanResults['postExerciseStressStatus'] = post.stressLevel ?? '';
+    }
+
+    return scanResults;
+  }
+
+  Map<String, dynamic> _buildUserData(HealthAssessment a) {
+    final profile = ProfileService().selectedProfile;
+    return {
+      'age': profile?.age ?? 30,
+      'gender': profile?.gender.toLowerCase() ?? 'male',
+      'height': profile?.heightInCm ?? 170,
+      'weight': profile?.weightInKg ?? 70,
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
-    final orchestrator = context.watch<HealthAssessmentOrchestrator>();
-    final assessment = orchestrator.currentAssessment;
+    // In history mode we render the passed-in saved assessment and never touch
+    // the live orchestrator. In the live flow we watch the orchestrator.
+    final orchestrator =
+        _isHistory ? null : context.watch<HealthAssessmentOrchestrator>();
+    final assessment = widget.historyAssessment ?? orchestrator?.currentAssessment;
 
     if (assessment == null) {
       return Scaffold(
@@ -35,7 +206,7 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
 
     return PopScope(
       onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) {
+        if (didPop && orchestrator != null) {
           // User went back - clear summary and allow re-review
           await orchestrator.clearStepsAfter(AssessmentStep.bodyScan);
         }
@@ -48,8 +219,21 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
           backgroundColor: Colors.white,
         ),
       body: SafeArea(
+        bottom: false,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppDimensions.paddingLarge),
+          // Android 15+ edge-to-edge zeros out MediaQuery.padding inside the
+          // tab shell, so the Scaffold body can flow under the system nav.
+          // Go direct to the FlutterView for the true inset (mirrors
+          // profile_editor_screen.dart).
+          padding: EdgeInsets.fromLTRB(
+            AppDimensions.paddingLarge,
+            AppDimensions.paddingLarge,
+            AppDimensions.paddingLarge,
+            AppDimensions.paddingLarge +
+                MediaQueryData.fromView(View.of(context))
+                    .viewPadding
+                    .bottom,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -123,27 +307,41 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
               _buildRecommendationsCard(context, assessment),
               const SizedBox(height: AppDimensions.spacingXLarge),
 
-              // Complete Assessment Button
-              SizedBox(
-                width: double.infinity,
-                height: AppDimensions.buttonHeight,
-                child: ElevatedButton.icon(
-                  onPressed: () => _completeAssessment(context, orchestrator),
-                  icon: const Icon(Icons.check_circle),
-                  label: const Text('Complete Assessment'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.success,
+              // Live-flow actions only. History mode is read-only — these
+              // mutate orchestrator state, so they're hidden when reviewing a
+              // saved report.
+              if (orchestrator != null) ...[
+                // Complete Assessment Button
+                SizedBox(
+                  width: double.infinity,
+                  height: AppDimensions.buttonHeight,
+                  child: ElevatedButton.icon(
+                    onPressed: () => _completeAssessment(context, orchestrator),
+                    icon: const Icon(Icons.check_circle),
+                    label: const Text('Complete Assessment'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.success,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: AppDimensions.spacingMedium),
-              Center(
-                child: TextButton.icon(
-                  onPressed: () => _saveForLater(context, orchestrator),
-                  icon: const Icon(Icons.bookmark),
-                  label: const Text('Save and Return Later'),
+                const SizedBox(height: AppDimensions.spacingMedium),
+                Center(
+                  child: TextButton.icon(
+                    onPressed: () => _saveForLater(context, orchestrator),
+                    icon: const Icon(Icons.bookmark),
+                    label: const Text('Save and Return Later'),
+                  ),
                 ),
-              ),
+              ] else
+                SizedBox(
+                  width: double.infinity,
+                  height: AppDimensions.buttonHeight,
+                  child: ElevatedButton.icon(
+                    onPressed: () => Navigator.of(context).maybePop(),
+                    icon: const Icon(Icons.check),
+                    label: const Text('Done'),
+                  ),
+                ),
             ],
           ),
         ),
@@ -712,8 +910,8 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
             Expanded(
               child: _buildVitalItem(
                 'Stress Level',
-                vitals.averageStressLevel?.toStringAsFixed(1) ?? '--',
-                '/10',
+                vitals.mostCommonStressLevel ?? '--',
+                '',
                 Icons.psychology,
                 AppColors.warning,
               ),
@@ -908,8 +1106,8 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
                   Expanded(
                     child: _buildCompactVitalItem(
                       'Stress',
-                      measurement.stressLevel?.toStringAsFixed(1) ?? '--',
-                      '/10',
+                      measurement.stressLevel ?? '--',
+                      '',
                       Icons.psychology,
                       AppColors.warning,
                     ),
@@ -1213,10 +1411,12 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
             children: [
               Icon(Icons.lightbulb, color: AppColors.primaryPurple, size: 24),
               const SizedBox(width: 8),
-              Text(
-                'Personalized Recommendations',
-                style: AppTypography.headlineSmall.copyWith(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  'Personalized Recommendations',
+                  style: AppTypography.headlineSmall.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -1297,7 +1497,7 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
           'Elevated blood pressure detected - monitor and discuss with healthcare provider',
         );
       }
-      if (vitals.averageStressLevel != null && vitals.averageStressLevel! > 7) {
+      if (vitals.mostCommonStressLevel == 'High') {
         recommendations.add('Stress levels are elevated - consider relaxation techniques');
       }
     }
@@ -1406,17 +1606,19 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
     );
 
     if (confirmed != true) return;
-
-    // Complete the assessment
-    await orchestrator.completeAssessment();
-
     if (!context.mounted) return;
 
-    // Navigate to home
-    context.go('/home');
+    // Capture stable references before awaiting — orchestrator.completeAssessment
+    // calls notifyListeners() which rebuilds this screen with assessment=null
+    // (the empty-state Scaffold) and silently drops any context.go fired
+    // afterwards. The captured router + messenger survive the rebuild.
+    final router = GoRouter.of(context);
+    final messenger = ScaffoldMessenger.of(context);
 
-    // Show success message
-    ScaffoldMessenger.of(context).showSnackBar(
+    await orchestrator.completeAssessment();
+
+    router.go('/home');
+    messenger.showSnackBar(
       const SnackBar(
         content: Text('Health assessment completed successfully!'),
         backgroundColor: AppColors.success,
@@ -1429,10 +1631,13 @@ class HealthAssessmentSummaryScreen extends StatelessWidget {
     BuildContext context,
     HealthAssessmentOrchestrator orchestrator,
   ) async {
-    // Assessment is already saved automatically, just navigate away
-    context.go('/home');
-
-    ScaffoldMessenger.of(context).showSnackBar(
+    // Assessment is already saved automatically, just navigate away. Use the
+    // captured router/messenger pattern in case orchestrator state changes
+    // in flight.
+    final router = GoRouter.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    router.go('/home');
+    messenger.showSnackBar(
       const SnackBar(
         content: Text('Assessment saved - you can continue later'),
         backgroundColor: AppColors.info,

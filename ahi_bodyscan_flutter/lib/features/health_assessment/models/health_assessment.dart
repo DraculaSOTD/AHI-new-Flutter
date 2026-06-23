@@ -3,6 +3,7 @@ import 'anxiety_survey_result.dart';
 import 'depression_survey_result.dart';
 import 'fitness_test_result.dart';
 import '../../../services/ahi_scanner/models/scan_results.dart';
+import '../../../services/lambda_service.dart' show HealthAssessmentResult;
 
 /// Comprehensive Health Assessment combining mental health surveys,
 /// fitness testing, and vital signs monitoring
@@ -40,6 +41,17 @@ class HealthAssessment {
   // Lambda Health Assessment (if available)
   final Map<String, dynamic>? lambdaAssessment;
 
+  // Single end-of-assessment Lambda submission result. In-memory only — not
+  // persisted to JSON (recomputed by the summary screen on a fresh load).
+  final HealthAssessmentResult? lambdaResult;
+
+  /// Full post-exercise (step-test cool-down) face scan. The HR also lives
+  /// in `fitnessTest.postExerciseHeartRate` for the recovery-score
+  /// calculation; the whole measurement is kept here so the summary screen
+  /// can ship all its vitals to Lambda as step-test data. In-memory only —
+  /// not persisted to JSON.
+  final FaceScanMeasurement? postExerciseFaceScan;
+
   HealthAssessment({
     required this.id,
     required this.profileId,
@@ -53,6 +65,8 @@ class HealthAssessment {
     this.vitalSigns,
     this.bodyScanResult,
     this.lambdaAssessment,
+    this.lambdaResult,
+    this.postExerciseFaceScan,
   });
 
   // Check if assessment has critical mental health flags
@@ -171,6 +185,8 @@ class HealthAssessment {
     VitalSignsResults? vitalSigns,
     BodyScanResult? bodyScanResult,
     Map<String, dynamic>? lambdaAssessment,
+    HealthAssessmentResult? lambdaResult,
+    FaceScanMeasurement? postExerciseFaceScan,
   }) {
     return HealthAssessment(
       id: id ?? this.id,
@@ -185,6 +201,9 @@ class HealthAssessment {
       vitalSigns: vitalSigns ?? this.vitalSigns,
       bodyScanResult: bodyScanResult ?? this.bodyScanResult,
       lambdaAssessment: lambdaAssessment ?? this.lambdaAssessment,
+      lambdaResult: lambdaResult ?? this.lambdaResult,
+      postExerciseFaceScan:
+          postExerciseFaceScan ?? this.postExerciseFaceScan,
     );
   }
 
@@ -242,10 +261,24 @@ class VitalSignsResults {
     return values.reduce((a, b) => a + b) / values.length;
   }
 
-  double? get averageStressLevel {
-    final values = measurements.map((m) => m.stressLevel).whereType<double>().toList();
-    if (values.isEmpty) return null;
-    return values.reduce((a, b) => a + b) / values.length;
+  /// Most-frequent stress label across measurements (last-wins on tie). Stress
+  /// is a String label ("Low" / "Moderate" / "High"), not a number, so we don't
+  /// average — we pick the modal label.
+  String? get mostCommonStressLevel {
+    final labels = measurements.map((m) => m.stressLevel).whereType<String>().toList();
+    if (labels.isEmpty) return null;
+    final counts = <String, int>{};
+    String? winner;
+    int winnerCount = 0;
+    for (final label in labels) {
+      final c = (counts[label] ?? 0) + 1;
+      counts[label] = c;
+      if (c >= winnerCount) {
+        winnerCount = c;
+        winner = label;
+      }
+    }
+    return winner;
   }
 
   Map<String, dynamic> toJson() {
@@ -257,7 +290,7 @@ class VitalSignsResults {
       'averageRespiratoryRate': averageRespiratoryRate,
       'averageOxygenSaturation': averageOxygenSaturation,
       'averageHRV': averageHRV,
-      'averageStressLevel': averageStressLevel,
+      'mostCommonStressLevel': mostCommonStressLevel,
     };
   }
 
@@ -280,7 +313,7 @@ class FaceScanMeasurement {
   final int? respiratoryRate; // breaths/min
   final int? oxygenSaturation; // SpO2 %
   final double? heartRateVariability; // HRV (SDNN)
-  final double? stressLevel; // 0-10 scale
+  final String? stressLevel; // "Low" / "Moderate" / "High" / "Unknown"
 
   FaceScanMeasurement({
     required this.timestamp,
@@ -315,7 +348,7 @@ class FaceScanMeasurement {
       respiratoryRate: json['respiratoryRate'],
       oxygenSaturation: json['oxygenSaturation'],
       heartRateVariability: json['heartRateVariability']?.toDouble(),
-      stressLevel: json['stressLevel']?.toDouble(),
+      stressLevel: json['stressLevel'] as String?,
     );
   }
 
@@ -330,7 +363,7 @@ class FaceScanMeasurement {
       oxygenSaturation: result['oxygenSaturation'],
       heartRateVariability: result['heartRateVariability']?.toDouble() ??
                            result['sdnn']?.toDouble(),
-      stressLevel: result['stressLevel']?.toDouble(),
+      stressLevel: result['stressLevel'] as String?,
     );
   }
 }

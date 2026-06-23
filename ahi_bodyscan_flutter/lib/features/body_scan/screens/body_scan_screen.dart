@@ -7,6 +7,7 @@ import '../../../core/theme/app_typography.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../scanning/launchers/ahi_body_scan_launcher.dart';
 import '../../health_assessment/services/health_assessment_orchestrator.dart';
+import '../../../core/services/logging_service.dart';
 import '../../../services/ahi_scanner/models/scan_results.dart';
 import '../../../services/ahi_scanner/models/scan_inputs.dart';
 import '../../../services/ahi_scanner/models/scan_enums.dart';
@@ -383,6 +384,14 @@ class _BodyScanScreenState extends State<BodyScanScreen> {
                       const SizedBox(height: 24),
                       ElevatedButton(
                         onPressed: () {
+                          LoggingService.info(
+                            'User tapped Start AHI Body Scan',
+                            tag: 'BodyScanScreen',
+                            context: {
+                              'isPartOfAssessment':
+                                  widget.isPartOfAssessment,
+                            },
+                          );
                           // Launch AHI Body Scan with assessment flag
                           AHIBodyScanLauncher.launch(
                             context,

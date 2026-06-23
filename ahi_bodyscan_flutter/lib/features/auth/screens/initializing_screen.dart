@@ -1,4 +1,5 @@
 import '../../../core/services/logging_service.dart';
+import '../../../core/services/permission_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -87,6 +88,11 @@ class _InitializingScreenState extends State<InitializingScreen>
       final termsAccepted = prefs.getBool('termsAccepted') ?? false;
 
       LoggingService.info('Auth status', tag: 'InitializingScreen', context: {'authenticated': isAuthenticated, 'termsAccepted': termsAccepted});
+
+      // Proactively request every runtime permission the app needs on first
+      // open. Best-effort and never throws, so navigation below is unaffected
+      // by the user's choices. Already-granted permissions are silent no-ops.
+      await PermissionService.requestStartupPermissions();
 
       if (!mounted) return;
 

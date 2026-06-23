@@ -32,6 +32,7 @@ dependencies:
   shared_preferences: ^2.3.3
   http: ^1.2.2
   path_provider: ^2.1.5
+  share_plus: ^10.1.4
 
   # Utilities
   intl: ^0.20.2
@@ -54,6 +55,10 @@ dependencies:
   # Missing dependencies for legacy code compatibility
   web_socket_channel: ^2.4.0
   camera: ^0.10.0
+
+  # Face detection for pure-Dart Vastmindz rPPG implementation (replaces the
+  # native librppg_core.so path that conflicted with AHI's OpenCV).
+  google_mlkit_face_detection: ^0.10.0
 
   # Vastmindz rPPG SDK for face scan vital signs
   rppg_common:

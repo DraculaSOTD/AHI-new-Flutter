@@ -37,6 +37,17 @@ class NewScanScreen extends StatelessWidget {
               color: AppColors.secondaryBlue,
               onTap: () => context.push('/scan/user-profile'),
             ),
+            const SizedBox(height: 16),
+            _buildScanOption(
+              context,
+              icon: Icons.health_and_safety,
+              title: 'Health Assessment',
+              description:
+                  'Full assessment: mood surveys, 3 face scans, body scan and step test',
+              duration: '10-15 minutes',
+              color: AppColors.success,
+              onTap: () => context.push('/health-assessment/disclaimer'),
+            ),
           ],
         ),
       ),

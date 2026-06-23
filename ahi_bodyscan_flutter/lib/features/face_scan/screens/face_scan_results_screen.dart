@@ -65,6 +65,21 @@ class FaceScanResultsScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
+            // Risk breakdown — every factor the Lambda used to derive the score.
+            if (assessmentResults.lambdaSuccess) ...[
+              _buildSectionTitle('Risk Breakdown'),
+              const SizedBox(height: 12),
+              _buildRiskBreakdown(
+                assessmentResults.riskBreakdown,
+                assessmentResults.healthScore,
+              ),
+              const SizedBox(height: 24),
+            ] else if (assessmentResults.riskBreakdown.isEmpty &&
+                assessmentResults.lambdaError != null) ...[
+              _buildRiskBreakdownUnavailable(),
+              const SizedBox(height: 24),
+            ],
+
             // Vital Signs Section
             _buildSectionTitle(isPartOfAssessment ? 'Averaged Vital Signs (3 Scans)' : 'Vital Signs'),
             const SizedBox(height: 12),
@@ -493,6 +508,112 @@ class FaceScanResultsScreen extends StatelessWidget {
     );
   }
   
+  static const Map<String, String> _riskLabels = {
+    'risk_adj_tenYrCvd':           '10-year CVD risk',
+    'risk_adj_bloodPressure':      'Blood pressure',
+    'risk_adj_bmi':                'BMI',
+    'risk_adj_metSComp':           'Metabolic syndrome',
+    'risk_adj_activityLevel':      'Activity level',
+    'risk_adj_restingHeartRate':   'Resting heart rate',
+    'risk_adj_bapwv':              'Arterial stiffness (baPWV)',
+    'risk_adj_totalCholesterol':   'Total cholesterol',
+    'risk_adj_ldlC':               'LDL cholesterol',
+    'risk_adj_hdlC':               'HDL cholesterol',
+    'risk_adj_triglycerides':      'Triglycerides',
+    'risk_adj_smokerStatus':       'Smoking status',
+    'risk_adj_chronicMedication':  'Chronic medication',
+    'risk_adj_framinghamScore':    'Framingham score',
+    'risk_adj_restingFitness':     'Resting fitness',
+  };
+
+  String _humaniseRiskKey(String key) {
+    if (_riskLabels.containsKey(key)) return _riskLabels[key]!;
+    // Fallback: strip `risk_adj_` and split camelCase into a readable phrase.
+    final raw = key.replaceFirst('risk_adj_', '');
+    final spaced = raw.replaceAllMapped(
+      RegExp(r'([a-z])([A-Z])'),
+      (m) => '${m[1]} ${m[2]!.toLowerCase()}',
+    );
+    return spaced.isEmpty ? key : spaced[0].toUpperCase() + spaced.substring(1);
+  }
+
+  int _riskRank(String risk) {
+    switch (risk.toLowerCase()) {
+      case 'high':   return 0;
+      case 'medium': return 1;
+      case 'low':    return 2;
+      default:       return 3;
+    }
+  }
+
+  Widget _buildRiskBreakdown(Map<String, String> breakdown, int? healthScore) {
+    final sorted = breakdown.entries.toList()
+      ..sort((a, b) {
+        final r = _riskRank(a.value).compareTo(_riskRank(b.value));
+        if (r != 0) return r;
+        return _humaniseRiskKey(a.key).compareTo(_humaniseRiskKey(b.key));
+      });
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            healthScore == null
+                ? 'Each factor the Lambda model classified, with its risk level.'
+                : 'Your health score of $healthScore reflects the share of these factors rated LOW.',
+            style: AppTypography.bodySmall.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 12),
+          for (final e in sorted)
+            _buildRiskRow(_humaniseRiskKey(e.key), e.value),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRiskBreakdownUnavailable() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.backgroundLight,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.divider,
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.info_outline,
+              size: 20, color: AppColors.textSecondary),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Risk breakdown unavailable — Lambda response missing.',
+              style: AppTypography.bodySmall.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildRecommendations(List<String> recommendations) {
     return Container(
       padding: const EdgeInsets.all(16),
